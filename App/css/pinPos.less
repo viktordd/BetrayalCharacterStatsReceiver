@@ -1,0 +1,74 @@
+@orgW: 720px;
+@orgH: 691px;
+
+@width: 300px;
+@height: 287.916px;
+
+@scale: @orgW / @width;
+
+@speedXOffset: 118px;
+@speedYOffset: 23px;
+@mightXOffset: 87px;
+@mightYOffset: 104px;
+@sanityXOffset: 5px;
+@sanityYOffset: 104px;
+@knowledgeXOffset: 1px;
+@knowledgeYOffset: 23px;
+
+.generate-positions(blue_madame_zostra, speed, @speedXOffset, @speedYOffset, 200px, 544px, 126px, 317px, 8);
+.generate-positions(blue_madame_zostra, might, @mightXOffset, @mightYOffset, 143px, 282px, 336px, 143px, 8);
+.generate-positions(blue_madame_zostra, sanity, @sanityXOffset, @sanityYOffset, 570px, 282px, 377px, 143px, 8);
+.generate-positions(blue_madame_zostra, knowledge, @knowledgeXOffset, @knowledgeYOffset, 513px, 545px, 588px, 316px, 8);
+
+.generate-positions(blue_vivian_lopez, speed, @speedXOffset, @speedYOffset, 204px, 545px, 130px, 318px, 8);
+.generate-positions(blue_vivian_lopez, might, @mightXOffset, @mightYOffset, 147px, 280px, 339px, 140px, 8);
+.generate-positions(blue_vivian_lopez, sanity, @sanityXOffset, @sanityYOffset, 571px, 281px, 380px, 141px, 8);
+.generate-positions(blue_vivian_lopez, knowledge, @knowledgeXOffset, @knowledgeYOffset, 515px, 544px, 591px, 316px, 8);
+
+.generate-positions(green_brandon_jaspers, speed, @speedXOffset, @speedYOffset, 201px, 542px, 129px, 314px, 8);
+.generate-positions(green_brandon_jaspers, might, @mightXOffset, @mightYOffset, 143px, 277px, 336px, 138px, 8);
+.generate-positions(green_brandon_jaspers, sanity, @sanityXOffset, @sanityYOffset, 571px, 277px, 378px, 138px, 8);
+.generate-positions(green_brandon_jaspers, knowledge, @knowledgeXOffset, @knowledgeYOffset, 515px, 540px, 589px, 312px, 8);
+
+.generate-positions(green_peter_akimoto, speed, @speedXOffset, @speedYOffset, 205px, 539px, 128px, 313px, 8);
+.generate-positions(green_peter_akimoto, might, @mightXOffset, @mightYOffset, 144px, 277px, 336px, 137px, 8);
+.generate-positions(green_peter_akimoto, sanity, @sanityXOffset, @sanityYOffset, 573px, 276px, 380px, 135px, 8);
+.generate-positions(green_peter_akimoto, knowledge, @knowledgeXOffset, @knowledgeYOffset, 516px, 538px, 591px, 311px, 8);
+
+.generate-positions(purple_heather_granville, speed, @speedXOffset, @speedYOffset, 206px, 543px, 134px, 316px, 8);
+.generate-positions(purple_heather_granville, might, @mightXOffset, @mightYOffset, 147px, 278px, 340px, 138px, 8);
+.generate-positions(purple_heather_granville, sanity, @sanityXOffset, @sanityYOffset, 575px, 277px, 382px, 138px, 8);
+.generate-positions(purple_heather_granville, knowledge, @knowledgeXOffset, @knowledgeYOffset, 522px, 538px, 595px, 309px, 8);
+
+.generate-positions(purple_jenny_leclerc, speed, @speedXOffset, @speedYOffset, 203px, 545px, 134px, 317px, 8);
+.generate-positions(purple_jenny_leclerc, might, @mightXOffset, @mightYOffset, 148px, 280px, 340px, 141px, 8);
+.generate-positions(purple_jenny_leclerc, sanity, @sanityXOffset, @sanityYOffset, 573px, 280px, 380px, 141px, 8);
+.generate-positions(purple_jenny_leclerc, knowledge, @knowledgeXOffset, @knowledgeYOffset, 521px, 544px, 593px, 315px, 8);
+
+.generate-positions(red_darrin_flash_williams, speed, @speedXOffset, @speedYOffset, 203px, 544px, 129px, 317px, 8);
+.generate-positions(red_darrin_flash_williams, might, @mightXOffset, @mightYOffset, 145px, 278px, 339px, 139px, 8);
+.generate-positions(red_darrin_flash_williams, sanity, @sanityXOffset, @sanityYOffset, 573px, 279px, 380px, 139px, 8);
+.generate-positions(red_darrin_flash_williams, knowledge, @knowledgeXOffset, @knowledgeYOffset, 517px, 545px, 591px, 316px, 8);
+
+.generate-positions(red_ox_bellows, speed, @speedXOffset, @speedYOffset, 203px, 544px, 129px, 317px, 8);
+.generate-positions(red_ox_bellows, might, @mightXOffset, @mightYOffset, 145px, 278px, 339px, 139px, 8);
+.generate-positions(red_ox_bellows, sanity, @sanityXOffset, @sanityYOffset, 573px, 279px, 380px, 139px, 8);
+.generate-positions(red_ox_bellows, knowledge, @knowledgeXOffset, @knowledgeYOffset, 517px, 545px, 591px, 316px, 8);
+
+.generate-positions(@char, @pin, @xOffset, @yOffset, @xMin, @yMin, @xMax, @yMax, @n, @i: 0) when (@i =< @n) {
+    
+	@currXMin: (@xMin - @xOffset) / @scale;
+	@currYMin: (@yMin - @yOffset) / @scale;
+	@currXMax: (@xMax - @xOffset) / @scale;
+	@currYMax: (@yMax - @yOffset) / @scale;
+
+	@xDelta: (@currXMax - @currXMin) / @n;
+	@yDelta: (@currYMax - @currYMin) / @n;
+    
+    .@{char} .@{pin}.p-@{i} {
+        left: @currXMin + (@xDelta * (@i));
+        top: (@currYMin + (@yDelta * (@i)));
+    }
+
+    .generate-positions(@char, @pin, @xOffset, @yOffset, @xMin, @yMin, @xMax, @yMax, @n, (@i + 1));
+}

@@ -1,0 +1,122 @@
+﻿body {
+	overflow: hidden;
+}
+
+div#main {
+	height: 720px;
+	width: 1280px;
+	border: 0px solid silver;
+	vertical-align: middle;
+	color: #FFFFFF;
+	background-color: #000000;
+	font-weight: bold;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 40px;
+}
+
+.char-container{
+	
+	width: 350px;
+	height: 400px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	position: relative;
+	float:left;
+	margin: 10px;
+	border: 1px solid gray;
+}
+
+/* scale = 2.4 */
+.char {
+	width: 300px;		/* 720 / 2.4 = 300 */
+	height: 287.916px;	/* 691 / 2.4 = 287.916 */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -150px;
+}
+
+.char.blue_madame_zostra {
+	background-image: url(Images/char_blue_madame_zostra.png);
+}
+
+.char.blue_vivian_lopez {
+	background-image: url(Images/char_blue_vivian_lopez.png);
+}
+
+.char.green_brandon_jaspers {
+	background-image: url(Images/char_green_brandon_jaspers.png);
+}
+
+.char.green_peter_akimoto {
+	background-image: url(Images/char_green_peter_akimoto.png);
+}
+
+.char.purple_heather_granville {
+	background-image: url(Images/char_purple_heather_granville.png);
+}
+
+.char.purple_jenny_leclerc {
+	background-image: url(Images/char_purple_jenny_leclerc.png);
+}
+
+.char.red_darrin_flash_williams {
+	background-image: url(Images/char_red_darrin_flash_williams.png);
+}
+
+.char.red_ox_bellows {
+	background-image: url(Images/char_red_ox_bellows.png);
+}
+
+.char.white_father_rhinehardt {
+	background-image: url(Images/char_white_father_rhinehardt.png);
+}
+
+.char.white_professor_longfellow {
+	background-image: url(Images/char_white_professor_longfellow.png);
+}
+
+.char.yellow_missy_dubourde {
+	background-image: url(Images/char_yellow_missy_dubourde.png);
+}
+
+.char.yellow_zoe_ingstrom {
+	background-image: url(Images/char_yellow_zoe_ingstrom.png);
+}
+
+.might {
+	width: 38.75px;		/* 93 / 2.4 = 38.75 */
+	height: 45px;		/* 108 / 2.4 = 45 */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url(Images/pin_might.png);
+	position: absolute;
+}
+.speed {
+	width: 50px;		/* 120 / 2.4 = 50 */
+	height: 32.083px;	/* 77 / 2.4 = 32.083 */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url(Images/pin_speed.png);
+	position: absolute;
+}
+.sanity {
+	width: 38.75px;		/* 93 / 2.4 = 38.75 */
+	height: 45px;		/* 108 / 2.4 = 45 */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url(Images/pin_sanity.png);
+	position: absolute;
+}
+.knowledge {
+	width: 50px;		/* 120 / 2.4 = 50 */
+	height: 32.083px;	/* 77 / 2.4 = 32.083 */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url(Images/pin_knowledge.png);
+	position: absolute;
+}

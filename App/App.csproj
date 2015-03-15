@@ -57,14 +57,61 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\pinPos.css">
+      <DependentUpon>pinPos.less</DependentUpon>
+    </Content>
+    <Content Include="css\pinPos.min.css">
+      <DependentUpon>pinPos.css</DependentUpon>
+    </Content>
+    <Content Include="js\constants.js" />
+    <Content Include="js\app.js" />
+    <Content Include="js\controllers\main.js" />
+    <Content Include="js\directives\char.js" />
+    <Content Include="js\lib\angular-route.js" />
+    <Content Include="js\lib\angular-route.min.js">
+      <DependentUpon>angular-route.js</DependentUpon>
+    </Content>
+    <Content Include="js\lib\angular.js" />
+    <Content Include="js\lib\angular.min.js">
+      <DependentUpon>angular.js</DependentUpon>
+    </Content>
     <Content Include="SenderTest.html" />
-    <Content Include="Default.html" />
+    <Content Include="index.html" />
+    <Content Include="css\Images\char_blue_madame_zostra.png" />
+    <Content Include="css\Images\char_blue_vivian_lopez.png" />
+    <Content Include="css\Images\char_green_brandon_jaspers.png" />
+    <Content Include="css\Images\char_green_peter_akimoto.png" />
+    <Content Include="css\Images\char_purple_heather_granville.png" />
+    <Content Include="css\Images\char_purple_jenny_leclerc.png" />
+    <Content Include="css\Images\char_red_darrin_flash_williams.png" />
+    <Content Include="css\Images\char_red_ox_bellows.png" />
+    <Content Include="css\Images\char_white_father_rhinehardt.png" />
+    <Content Include="css\Images\char_white_professor_longfellow.png" />
+    <Content Include="css\Images\char_yellow_missy_dubourde.png" />
+    <Content Include="css\Images\char_yellow_zoe_ingstrom.png" />
+    <Content Include="css\Images\pin_knowledge.png" />
+    <Content Include="css\Images\pin_might.png" />
+    <Content Include="css\Images\pin_sanity.png" />
+    <Content Include="css\Images\pin_speed.png" />
+    <Content Include="css\app.css" />
+    <Content Include="templates\char.html" />
+    <Content Include="views\main.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="js\lib\angular-route.min.js.map">
+      <DependentUpon>angular-route.js</DependentUpon>
+    </Content>
+    <Content Include="js\lib\angular.min.js.map">
+      <DependentUpon>angular.js</DependentUpon>
+    </Content>
+    <Content Include="css\pinPos.less" />
+    <Content Include="css\pinPos.css.map">
+      <DependentUpon>pinPos.css</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -73,6 +120,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
