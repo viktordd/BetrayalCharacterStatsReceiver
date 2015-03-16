@@ -1,27 +1,64 @@
 ﻿'use strict';
 
-angular.module('bcsrControllers', []).controller('mainCtrl', ['$scope',
+angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope',
     function($scope) {
 
         $scope.chars = {
+            ct: 0,
             data: [
                 {
-                    id: '',
+                    id: '1',
                     char: 'blue_madame_zostra',
-                    player: 'Test Player',
-                    might: 3,
-                    speed: 4,
+                    playerName: 'Test Player',
+                    speed: 3,
+                    might: 4,
                     sanity: 3,
                     knowledge: 4
                 },
                 {
-                    id: '',
+                    id: '2',
                     char: 'green_brandon_jaspers',
-                    player: 'Test Player 2',
+                    playerName: 'Test Player 2',
+                    speed: 3,
                     might: 4,
-                    speed: 5,
                     sanity: 4,
+                    knowledge: 3
+                },
+                {
+                    id: '3',
+                    char: 'purple_heather_granville',
+                    playerName: 'Test Player 3',
+                    speed: 3,
+                    might: 3,
+                    sanity: 3,
                     knowledge: 5
+                },
+                {
+                    id: '4',
+                    char: 'red_darrin_flash_williams',
+                    playerName: 'Test Player 4',
+                    speed: 5,
+                    might: 3,
+                    sanity: 3,
+                    knowledge: 3
+                },
+                {
+                    id: '5',
+                    char: 'white_father_rhinehardt',
+                    playerName: 'Test Player 5',
+                    speed: 3,
+                    might: 3,
+                    sanity: 5,
+                    knowledge: 4
+                },
+                {
+                    id: '6',
+                    char: 'yellow_missy_dubourde',
+                    playerName: 'Test Player 6',
+                    speed: 3,
+                    might: 4,
+                    sanity: 3,
+                    knowledge: 4
                 }
             ]
         };

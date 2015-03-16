@@ -67,6 +67,10 @@
     <Content Include="js\app.js" />
     <Content Include="js\controllers\main.js" />
     <Content Include="js\directives\char.js" />
+    <Content Include="js\lib\angular-animate.js" />
+    <Content Include="js\lib\angular-animate.min.js">
+      <DependentUpon>angular-animate.js</DependentUpon>
+    </Content>
     <Content Include="js\lib\angular-route.js" />
     <Content Include="js\lib\angular-route.min.js">
       <DependentUpon>angular-route.js</DependentUpon>
@@ -111,6 +115,9 @@
     <Content Include="css\pinPos.less" />
     <Content Include="css\pinPos.css.map">
       <DependentUpon>pinPos.css</DependentUpon>
+    </Content>
+    <Content Include="js\lib\angular-animate.min.js.map">
+      <DependentUpon>angular-animate.js</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.Debug.config">

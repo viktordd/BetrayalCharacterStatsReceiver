@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('betrayalCharacterStatsReceiver', ['ngRoute', 'bcsrControllers'])
+angular.module('betrayalCharacterStatsReceiver', ['ngRoute', 'ngAnimate'])
     .config([
         '$routeProvider', function($routeProvider) {
             $routeProvider

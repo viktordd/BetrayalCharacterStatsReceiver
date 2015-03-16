@@ -1,12 +1,25 @@
-﻿<div class="char-container">
-    <div class="char" ng-class="char.char">
+﻿<div class="char-container" ng-class="char.char">
+    <div>
+        <div class="name">{{ char.playerName}}</div>
+        <div class="stats left">
+            Might: <span class="might" ng-class="getClass(char.might)">{{ getStat('might') }}</span><br />
+            Speed: <span class="speed" ng-class="getClass(char.speed)">{{ getStat('speed') }}</span>
+        </div>
+        <div class="stats right">
+            Sanity: <span class="sanity" ng-class="getClass(char.sanity)">{{ getStat('sanity') }}</span><br />
+            Knowledge: <span class="knowledge" ng-class="getClass(char.knowledge)">{{ getStat('knowledge') }}</span>
+        </div>
+    </div>
+    <div class="char">
         <div class="might" ng-class="getClass(char.might)"></div>
         <div class="speed" ng-class="getClass(char.speed)"></div>
         <div class="sanity" ng-class="getClass(char.sanity)"></div>
         <div class="knowledge" ng-class="getClass(char.knowledge)"></div>
     </div>
-    <div style="position: absolute; bottom: 0;">
+    <div style="position: absolute; bottom: 0; left: 100px;">
         <button ng-click="min()">Min</button>
+        <button ng-click="down()">Down</button>
+        <button ng-click="up()">Up</button>
         <button ng-click="max()">Max</button>
     </div>
 </div>
