@@ -32,12 +32,16 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             console.log('Received Sender Connected event: ' + JSON.stringify(event.senderId));
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
 
-            var player = {
-                senderId: event.senderId
-            };
-
             $scope.$apply(function() {
-                $scope.chars.data.push(player);
+                $scope.chars.data.push({
+                    id: event.senderId,
+                    char: '',
+                    playerName: '',
+                    speed: 0,
+                    might: 0,
+                    sanity: 0,
+                    knowledge: 0
+                });
             });
         };
 
@@ -68,7 +72,13 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
                 if (!player) {
                     player = {
-                        senderId: event.senderId
+                        id: event.senderId,
+                        char: '',
+                        playerName: '',
+                        speed: 0,
+                        might: 0,
+                        sanity: 0,
+                        knowledge: 0
                     };
                     $scope.chars.data.push(player)
                 }
