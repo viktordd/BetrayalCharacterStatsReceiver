@@ -5,15 +5,15 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         $scope.chars = {
             data: [
-                //{
-                //    id: '1',
-                //    char: 'blue_madame_zostra',
-                //    playerName: 'Test Player',
-                //    speed: 3,
-                //    might: 4,
-                //    sanity: 3,
-                //    knowledge: 4
-                //},
+                {
+                    id: '1',
+                    char: '',
+                    playerName: '',
+                    speed: 0,
+                    might: 0,
+                    sanity: 0,
+                    knowledge: 0
+                },
             ]
         };
 
@@ -83,7 +83,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
                     $scope.chars.data.push(player)
                 }
 
-                $.extend(true, player, JSON.parse(event.data));
+                $.extend(player, JSON.parse(event.data));
             });
 
             // inform all senders on the CastMessageBus of the incoming message event

@@ -1,5 +1,5 @@
 ﻿<div class="char-container" ng-class="char.char">
-    <div>
+    <div ng-if="char.char && char.char.length > 0">
         <div class="name">{{ char.playerName}}</div>
         <div class="stats left">
             Might: <span class="might" ng-class="getClass(char.might)">{{ getStat('might') }}</span><br />
@@ -10,7 +10,7 @@
             Knowledge: <span class="knowledge" ng-class="getClass(char.knowledge)">{{ getStat('knowledge') }}</span>
         </div>
     </div>
-    <div class="char">
+    <div class="char" ng-if="char.char && char.char.length > 0">
         <div class="might" ng-class="getClass(char.might)"></div>
         <div class="speed" ng-class="getClass(char.speed)"></div>
         <div class="sanity" ng-class="getClass(char.sanity)"></div>

@@ -12,7 +12,11 @@ angular.module('betrayalCharacterStatsReceiver').directive('bcsrChar', function(
                 return 'p-' + pos;
             }
             scope.getStat = function(stat) {
-                return window.bcsrConst.stats[scope.char.char][stat][scope.char[stat]];
+                var char = window.bcsrConst.stats[scope.char.char];
+                if (char)
+                    return char[stat][scope.char[stat]];
+                else
+                    return 0;
             }
         }
     }
