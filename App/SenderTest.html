@@ -111,8 +111,8 @@
         /**
          * stop app/session
          */
-        function stopApp() {
-            session.stop(onStopAppSuccess, onError);
+        function leave() {
+            session.leave(onStopAppSuccess, onError);
         }
         /**
          * send a message to the receiver using the custom namespace
@@ -207,7 +207,7 @@
 
     <br /><br /><br /><br /><br /><br />
     <button onclick="update()" style="">Update</button>
-    <button onclick="stopApp()" style="">Stop</button>
+    <button onclick="leave()" style="">Leave</button>
 
     <!-- Debbugging output -->
     <div style="margin:10px;">

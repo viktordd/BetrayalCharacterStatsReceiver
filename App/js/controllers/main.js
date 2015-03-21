@@ -80,7 +80,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
             // inform all senders on the CastMessageBus of the incoming message event
             // sender message listener will be invoked
-            window.messageBus.send(event.senderId, event.data);
+            window.messageBus.broadcast(event.data);
         }
 
         // initialize the CastReceiverManager with an application status message
