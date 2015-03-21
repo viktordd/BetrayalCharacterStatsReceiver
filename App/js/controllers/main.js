@@ -5,15 +5,15 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         $scope.chars = {
             data: [
-                {
-                    id: '1',
-                    char: '',
-                    playerName: '',
-                    speed: 0,
-                    might: 0,
-                    sanity: 0,
-                    knowledge: 0
-                },
+                //{
+                //    id: '1',
+                //    char: '',
+                //    playerName: '',
+                //    speed: 0,
+                //    might: 0,
+                //    sanity: 0,
+                //    knowledge: 0
+                //},
             ]
         };
 
@@ -34,13 +34,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
             $scope.$apply(function() {
                 $scope.chars.data.push({
-                    id: event.senderId,
-                    char: '',
-                    playerName: '',
-                    speed: 0,
-                    might: 0,
-                    sanity: 0,
-                    knowledge: 0
+                    id: event.senderId
                 });
             });
         };
@@ -72,18 +66,12 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
                 if (!player) {
                     player = {
-                        id: event.senderId,
-                        char: '',
-                        playerName: '',
-                        speed: 0,
-                        might: 0,
-                        sanity: 0,
-                        knowledge: 0
+                        id: event.senderId
                     };
                     $scope.chars.data.push(player)
                 }
 
-                $.extend(player, JSON.parse(event.data));
+                angular.extend(player, JSON.parse(event.data));
             });
 
             // inform all senders on the CastMessageBus of the incoming message event
