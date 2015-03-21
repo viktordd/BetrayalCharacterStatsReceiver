@@ -18,37 +18,31 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         };
 
         cast.receiver.logger.setLevelValue(0);
-        var castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
         console.log('Starting Receiver Manager');
 
         // handler for the 'ready' event
-        castReceiverManager.onReady = function(event) {
+        window.castReceiverManager.onReady = function(event) {
             console.log('Received Ready event: ' + JSON.stringify(event.data));
-            castReceiverManager.setApplicationState('Application status is ready...');
+            window.castReceiverManager.setApplicationState('Application status is ready...');
         };
 
         // handler for 'senderconnected' event
-        castReceiverManager.onSenderConnected = function(event) {
+        window.castReceiverManager.onSenderConnected = function(event) {
             console.log('Received Sender Connected event: ' + event.data);
-            console.log(castReceiverManager.getSender(event.data).userAgent);
+            console.log(window.castReceiverManager.getSender(event.data).userAgent);
         };
 
         // handler for 'senderdisconnected' event
-        castReceiverManager.onSenderDisconnected = function(event) {
+        window.castReceiverManager.onSenderDisconnected = function(event) {
             console.log('Received Sender Disconnected event: ' + event.data);
-            if (castReceiverManager.getSenders().length == 0) {
+            if (window.castReceiverManager.getSenders().length == 0) {
                 window.close();
             }
         };
 
-        //// handler for 'systemvolumechanged' event
-        //castReceiverManager.onSystemVolumeChanged = function(event) {
-        //    console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' +
-        //        event.data['muted']);
-        //};
-
         // create a CastMessageBus to handle messages for a custom namespace
-        window.messageBus = castReceiverManager.getCastMessageBus('urn:x-cast:com.google.cast.betrayalCharacterStats');
+        window.messageBus = window.castReceiverManager.getCastMessageBus('urn:x-cast:com.google.cast.betrayalCharacterStats');
 
         // handler for the CastMessageBus message event
         window.messageBus.onMessage = function(event) {
@@ -58,8 +52,14 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             // sender message listener will be invoked
             window.messageBus.send(event.senderId, event.data);
         }
+
         // initialize the CastReceiverManager with an application status message
-        castReceiverManager.start({ statusText: 'Application is starting' });
+        var appConfig = new cast.receiver.CastReceiverManager.Config();
+        appConfig.statusText = 'Ready to play';
+        // 100 minutes for testing, use default 10sec in prod by not setting this value
+        appConfig.maxInactivity = 6000;
+
+        window.castReceiverManager.start(appConfig);
         console.log('Receiver Manager started');
     }
 ]);
