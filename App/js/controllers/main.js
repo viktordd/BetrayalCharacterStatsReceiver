@@ -29,7 +29,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         // handler for 'senderconnected' event
         window.castReceiverManager.onSenderConnected = function(event) {
-            console.log('Received Sender Connected event: ' + event);
+            console.log('Received Sender Connected event: ' + JSON.stringify(event));
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
             
             var player = JSON.parse(event.data);
