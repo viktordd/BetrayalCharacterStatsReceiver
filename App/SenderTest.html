@@ -3,22 +3,9 @@
 <head>
     <title>Hello World</title>
     <style type="text/css">
-        html, body, #wrapper {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-
-        #wrapper td {
-            vertical-align: middle;
-            text-align: center;
-        }
-
         input {
             font-family: "Arial", Arial, sans-serif;
-            font-size: 40px;
+            font-size: 26px;
             font-weight: bold;
         }
 
@@ -36,7 +23,7 @@
     <script type="text/javascript" src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
     <script type="text/javascript">
         var applicationID = 'F8634BB7';
-        var namespace = 'urn:x-cast:com.google.cast.sample.helloworld';
+        var namespace = 'urn:x-cast:com.google.cast.betrayalCharacterStats';
         var session = null;
         /**
          * Call initialization for Cast
@@ -152,11 +139,28 @@
             var dw = document.getElementById("debugmessage");
             dw.innerHTML += '\n' + JSON.stringify(message);
         };
+
+        function getValue(id){
+            var val = parseInt(document.getElementById(id).value);
+
+            return Math.max(0, Math.min(8, val));
+        }
+
         /**
          * utility function to handle text typed in by user in the input field
          */
         function update() {
-            sendMessage(document.getElementById("input").value);
+
+            var data = {
+                playerName: document.getElementById("playerName").value,
+                char: document.getElementById("char").value,
+                speed: getValue("speed"),
+                might: getValue("might"),
+                sanity: getValue("sanity"),
+                knowledge: getValue("knowledge")
+            };
+
+            sendMessage(JSON.stringify(data));
         }
         /**
          * handler for the transcribed text from the speech input
@@ -168,15 +172,44 @@
     </script>
 </head>
 <body>
-    <table id="wrapper">
-        <tr>
-            <td>
-                <form method="get" action="JavaScript:update();">
-                    <input id="input" class="border" type="text" size="30" onwebkitspeechchange="transcribe(this.value)" x-webkit-speech />
-                </form>
-            </td>
-        </tr>
-    </table>
+
+    <form method="get" action="JavaScript:update();">
+        <label for="playerName">Name:</label>
+        <input id="playerName" class="border" type="text" size="20" /><br /><br />
+
+        <label for="char">Character:</label>
+        <select id="char" class="border">
+            <option value=""></option>
+            <option value="blue_madame_zostra">blue_madame_zostra</option>
+            <option value="blue_vivian_lopez">blue_vivian_lopez</option>
+            <option value="green_brandon_jaspers">green_brandon_jaspers</option>
+            <option value="green_peter_akimoto">green_peter_akimoto</option>
+            <option value="purple_heather_granville">purple_heather_granville</option>
+            <option value="purple_jenny_leclerc">purple_jenny_leclerc</option>
+            <option value="red_darrin_flash_williams">red_darrin_flash_williams</option>
+            <option value="red_ox_bellows">red_ox_bellows</option>
+            <option value="white_father_rhinehardt">white_father_rhinehardt</option>
+            <option value="white_professor_longfellow">white_professor_longfellow</option>
+            <option value="yellow_missy_dubourde">yellow_missy_dubourde</option>
+            <option value="yellow_zoe_ingstrom">yellow_zoe_ingstrom</option>
+        </select><br /><br />
+
+        <div style="float: left">
+            <label for="might">Might:</label>
+            <input id="might" type="number" class="border" style="width: 110px;" /><br /><br />
+            <label for="speed">Speed:</label>
+            <input id="speed" type="number" class="border" style="width: 110px;" />
+        </div>
+        <div style="float: left; margin-left: 30px; text-align:right;">
+            <label for="sanity">Sanity:</label>
+            <input id="sanity" type="number" class="border" style="width: 110px;" /><br /><br />
+            <label for="knowledge">Knowledge:</label>
+            <input id="knowledge" type="number" class="border" style="width: 110px;" />
+        </div>
+
+        <br /><br /><br /><br /><br /><br />
+        <button onclick="update()" style="">Update</button>
+    </form>
 
     <!-- Debbugging output -->
     <div style="margin:10px;">

@@ -1,6 +1,5 @@
 ﻿<div id="main">
-    <input type="number" ng-model="chars.ct" style="position: absolute;" />
-    <div ng-class="'players-' + chars.ct">
-        <bcsr-char class="reveal-animation" ng-repeat="char in chars.data | limitTo: chars.ct track by char.id" char="char"></bcsr-char>
+    <div ng-class="'players-' + chars.data.length">
+        <bcsr-char class="reveal-animation" ng-repeat="char in chars.data track by char.id" char="char"></bcsr-char>
     </div>
 </div>
