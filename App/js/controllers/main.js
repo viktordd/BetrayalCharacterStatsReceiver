@@ -58,20 +58,18 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
                 var player;
                 for (var i = 0; i < $scope.chars.data.length; i++) {
                     var p = $scope.chars.data[i];
-                    if (p.senderId === event.senderId) {
+                    if (p.id === event.senderId) {
                         player = p;
                         break;
                     }
                 }
 
-                if (!player) {
-                    player = {
-                        id: event.senderId
-                    };
-                    $scope.chars.data.push(player)
+                if (player) {
+                    angular.extend(player, JSON.parse(event.data));
+                } else {
+                    console.log('Player with id [' + event.senderId + '] could not be found!');
                 }
 
-                angular.extend(player, JSON.parse(event.data));
             });
 
             // inform all senders on the CastMessageBus of the incoming message event
