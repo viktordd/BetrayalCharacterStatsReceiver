@@ -36,9 +36,9 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         // handler for 'senderdisconnected' event
         window.castReceiverManager.onSenderDisconnected = function(event) {
             console.log('Received Sender Disconnected event: ' + event.data);
-            if (window.castReceiverManager.getSenders().length == 0) {
-                window.close();
-            }
+            //if (window.castReceiverManager.getSenders().length == 0) {
+            //    window.close();
+            //}
         };
 
         // create a CastMessageBus to handle messages for a custom namespace
