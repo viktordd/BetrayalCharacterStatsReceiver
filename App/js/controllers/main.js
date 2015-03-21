@@ -29,15 +29,16 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         // handler for 'senderconnected' event
         window.castReceiverManager.onSenderConnected = function(event) {
-            console.log('Received Sender Connected event: ' + JSON.stringify(event));
+            console.log('Received Sender Connected event: ' + JSON.stringify(event.senderId));
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
-            
-            var player = JSON.parse(event.data);
-            
 
-            //$scope.$apply(function() {
-            //    $scope.chars.data.push();
-            //});
+            var player = {
+                senderId: event.senderId
+            };
+
+            $scope.$apply(function() {
+                $scope.chars.data.push(player);
+            });
         };
 
         // handler for 'senderdisconnected' event
@@ -55,9 +56,25 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         window.messageBus.onMessage = function(event) {
             console.log('Message [' + event.senderId + ']: ' + event.data);
 
-            //$scope.$apply(function() {
-            //    $scope.chars.data.push(JSON.parse(event.data));
-            //});
+            $scope.$apply(function() {
+                var player;
+                for (var i = 0; i < $scope.chars.data.length; i++) {
+                    var p = $scope.chars.data[i];
+                    if (p.senderId === event.senderId) {
+                        player = p;
+                        break;
+                    }
+                }
+
+                if (!player) {
+                    player = {
+                        senderId: event.senderId
+                    };
+                    $scope.chars.data.push(player)
+                }
+
+                $.extend(true, player, JSON.parse(event.data));
+            });
 
             // inform all senders on the CastMessageBus of the incoming message event
             // sender message listener will be invoked
