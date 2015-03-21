@@ -17,6 +17,23 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             ]
         };
 
+        function getId(senderId) {
+            var indx = senderId.indexOf(':');
+            if (indx >= 0) {
+                senderId.substr(0, indx);
+            }
+        }
+
+        function find(id) {
+            for (var i = 0; i < $scope.chars.data.length; i++) {
+                var p = $scope.chars.data[i];
+                if (p.id === id) {
+                    return p;
+                }
+            }
+            return null;
+        }
+
         cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
         console.log('Starting Receiver Manager');
@@ -33,9 +50,12 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
 
             $scope.$apply(function() {
-                $scope.chars.data.push({
-                    id: event.senderId
-                });
+                var id = getId(senderId);
+                var player = find(id);
+                if (!player)
+                    $scope.chars.data.push({
+                        id: id
+                    });
             });
         };
 
@@ -55,14 +75,8 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             console.log('Message [' + event.senderId + ']: ' + event.data);
 
             $scope.$apply(function() {
-                var player;
-                for (var i = 0; i < $scope.chars.data.length; i++) {
-                    var p = $scope.chars.data[i];
-                    if (p.id === event.senderId) {
-                        player = p;
-                        break;
-                    }
-                }
+                var id = getId(senderId);
+                var player = find(id);
 
                 if (player) {
                     angular.extend(player, JSON.parse(event.data));
