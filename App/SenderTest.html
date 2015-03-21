@@ -3,9 +3,9 @@
 <head>
     <title>Hello World</title>
     <style type="text/css">
-        input {
+        input, select {
             font-family: "Arial", Arial, sans-serif;
-            font-size: 26px;
+            font-size: 20px;
             font-weight: bold;
         }
 
@@ -175,14 +175,14 @@
 
     <form method="get" action="JavaScript:update();">
         <label for="playerName">Name:</label>
-        <input id="playerName" class="border" type="text" size="20" /><br /><br />
+        <input id="playerName" class="border" type="text" size="20" value="Test Player 123" /><br /><br />
 
         <label for="char">Character:</label>
         <select id="char" class="border">
             <option value=""></option>
             <option value="blue_madame_zostra">blue_madame_zostra</option>
             <option value="blue_vivian_lopez">blue_vivian_lopez</option>
-            <option value="green_brandon_jaspers">green_brandon_jaspers</option>
+            <option value="green_brandon_jaspers" selected>green_brandon_jaspers</option>
             <option value="green_peter_akimoto">green_peter_akimoto</option>
             <option value="purple_heather_granville">purple_heather_granville</option>
             <option value="purple_jenny_leclerc">purple_jenny_leclerc</option>
@@ -196,15 +196,15 @@
 
         <div style="float: left">
             <label for="might">Might:</label>
-            <input id="might" type="number" class="border" style="width: 110px;" /><br /><br />
+            <input id="might" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
             <label for="speed">Speed:</label>
-            <input id="speed" type="number" class="border" style="width: 110px;" />
+            <input id="speed" type="number" class="border" style="width: 110px;" value="1" />
         </div>
         <div style="float: left; margin-left: 30px; text-align:right;">
             <label for="sanity">Sanity:</label>
-            <input id="sanity" type="number" class="border" style="width: 110px;" /><br /><br />
+            <input id="sanity" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
             <label for="knowledge">Knowledge:</label>
-            <input id="knowledge" type="number" class="border" style="width: 110px;" />
+            <input id="knowledge" type="number" class="border" style="width: 110px;" value="1" />
         </div>
 
         <br /><br /><br /><br /><br /><br />
@@ -217,7 +217,7 @@
     </div>
 
     <script type="text/javascript">
-        document.getElementById("input").focus();
+        document.getElementById("playerName").focus();
     </script>
 </body>
 </html>
