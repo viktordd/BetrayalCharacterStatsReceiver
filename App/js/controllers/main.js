@@ -20,7 +20,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         function getId(senderId) {
             var indx = senderId.indexOf(':');
             if (indx >= 0) {
-                senderId.substr(0, indx);
+                return senderId.substr(0, indx);
             }
         }
 
