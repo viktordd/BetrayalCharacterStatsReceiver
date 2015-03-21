@@ -5,15 +5,15 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         $scope.chars = {
             data: [
-                {
-                    id: '1',
-                    char: 'blue_madame_zostra',
-                    playerName: 'Test Player',
-                    speed: 3,
-                    might: 4,
-                    sanity: 3,
-                    knowledge: 4
-                },
+                //{
+                //    id: '1',
+                //    char: 'blue_madame_zostra',
+                //    playerName: 'Test Player',
+                //    speed: 3,
+                //    might: 4,
+                //    sanity: 3,
+                //    knowledge: 4
+                //},
             ]
         };
 
@@ -29,16 +29,23 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         // handler for 'senderconnected' event
         window.castReceiverManager.onSenderConnected = function(event) {
-            console.log('Received Sender Connected event: ' + event.data);
+            console.log('Received Sender Connected event: ' + event);
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
+            
+            var player = JSON.parse(event.data);
+            
+
+            //$scope.$apply(function() {
+            //    $scope.chars.data.push();
+            //});
         };
 
         // handler for 'senderdisconnected' event
         window.castReceiverManager.onSenderDisconnected = function(event) {
             console.log('Received Sender Disconnected event: ' + event.data);
-            //if (window.castReceiverManager.getSenders().length == 0) {
-            //    window.close();
-            //}
+            if (window.castReceiverManager.getSenders().length == 0) {
+                window.close();
+            }
         };
 
         // create a CastMessageBus to handle messages for a custom namespace
@@ -47,6 +54,10 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         // handler for the CastMessageBus message event
         window.messageBus.onMessage = function(event) {
             console.log('Message [' + event.senderId + ']: ' + event.data);
+
+            //$scope.$apply(function() {
+            //    $scope.chars.data.push(JSON.parse(event.data));
+            //});
 
             // inform all senders on the CastMessageBus of the incoming message event
             // sender message listener will be invoked
