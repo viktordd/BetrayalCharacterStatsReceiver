@@ -140,7 +140,7 @@
             dw.innerHTML += '\n' + JSON.stringify(message);
         };
 
-        function getValue(id){
+        function getValue(id) {
             var val = parseInt(document.getElementById(id).value);
 
             return Math.max(0, Math.min(8, val));
@@ -161,8 +161,6 @@
             };
 
             sendMessage(JSON.stringify(data));
-
-            //sendMessage(data.playerName);
         }
         /**
          * handler for the transcribed text from the speech input
@@ -174,44 +172,41 @@
     </script>
 </head>
 <body>
+    <label for="playerName">Name:</label>
+    <input id="playerName" class="border" type="text" size="20" value="Test Player 123" /><br /><br />
 
-    <form method="get" action="JavaScript:update();">
-        <label for="playerName">Name:</label>
-        <input id="playerName" class="border" type="text" size="20" value="Test Player 123" /><br /><br />
+    <label for="char">Character:</label>
+    <select id="char" class="border">
+        <option value=""></option>
+        <option value="blue_madame_zostra">blue_madame_zostra</option>
+        <option value="blue_vivian_lopez">blue_vivian_lopez</option>
+        <option value="green_brandon_jaspers" selected>green_brandon_jaspers</option>
+        <option value="green_peter_akimoto">green_peter_akimoto</option>
+        <option value="purple_heather_granville">purple_heather_granville</option>
+        <option value="purple_jenny_leclerc">purple_jenny_leclerc</option>
+        <option value="red_darrin_flash_williams">red_darrin_flash_williams</option>
+        <option value="red_ox_bellows">red_ox_bellows</option>
+        <option value="white_father_rhinehardt">white_father_rhinehardt</option>
+        <option value="white_professor_longfellow">white_professor_longfellow</option>
+        <option value="yellow_missy_dubourde">yellow_missy_dubourde</option>
+        <option value="yellow_zoe_ingstrom">yellow_zoe_ingstrom</option>
+    </select><br /><br />
 
-        <label for="char">Character:</label>
-        <select id="char" class="border">
-            <option value=""></option>
-            <option value="blue_madame_zostra">blue_madame_zostra</option>
-            <option value="blue_vivian_lopez">blue_vivian_lopez</option>
-            <option value="green_brandon_jaspers" selected>green_brandon_jaspers</option>
-            <option value="green_peter_akimoto">green_peter_akimoto</option>
-            <option value="purple_heather_granville">purple_heather_granville</option>
-            <option value="purple_jenny_leclerc">purple_jenny_leclerc</option>
-            <option value="red_darrin_flash_williams">red_darrin_flash_williams</option>
-            <option value="red_ox_bellows">red_ox_bellows</option>
-            <option value="white_father_rhinehardt">white_father_rhinehardt</option>
-            <option value="white_professor_longfellow">white_professor_longfellow</option>
-            <option value="yellow_missy_dubourde">yellow_missy_dubourde</option>
-            <option value="yellow_zoe_ingstrom">yellow_zoe_ingstrom</option>
-        </select><br /><br />
+    <div style="float: left">
+        <label for="might">Might:</label>
+        <input id="might" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
+        <label for="speed">Speed:</label>
+        <input id="speed" type="number" class="border" style="width: 110px;" value="1" />
+    </div>
+    <div style="float: left; margin-left: 30px; text-align:right;">
+        <label for="sanity">Sanity:</label>
+        <input id="sanity" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
+        <label for="knowledge">Knowledge:</label>
+        <input id="knowledge" type="number" class="border" style="width: 110px;" value="1" />
+    </div>
 
-        <div style="float: left">
-            <label for="might">Might:</label>
-            <input id="might" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
-            <label for="speed">Speed:</label>
-            <input id="speed" type="number" class="border" style="width: 110px;" value="1" />
-        </div>
-        <div style="float: left; margin-left: 30px; text-align:right;">
-            <label for="sanity">Sanity:</label>
-            <input id="sanity" type="number" class="border" style="width: 110px;" value="1" /><br /><br />
-            <label for="knowledge">Knowledge:</label>
-            <input id="knowledge" type="number" class="border" style="width: 110px;" value="1" />
-        </div>
-
-        <br /><br /><br /><br /><br /><br />
-        <button onclick="update()" style="">Update</button>
-    </form>
+    <br /><br /><br /><br /><br /><br />
+    <button onclick="update()" style="">Update</button>
 
     <!-- Debbugging output -->
     <div style="margin:10px;">
