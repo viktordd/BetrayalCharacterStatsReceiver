@@ -64,10 +64,11 @@
             appendMessage("onSuccess: " + message);
         }
         /**
-         * callback on success for stopping app
+         * callback on success for leaving
          */
-        function onStopAppSuccess() {
-            appendMessage('onStopAppSuccess');
+        function onLeaveSuccess() {
+            appendMessage('onLeaveSuccess');
+            initializeCastApi();
         }
         /**
          * session listener during initialization
@@ -112,7 +113,7 @@
          * stop app/session
          */
         function leave() {
-            session.leave(onStopAppSuccess, onError);
+            session.leave(onLeaveSuccess, onError);
         }
         /**
          * send a message to the receiver using the custom namespace

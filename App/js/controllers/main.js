@@ -55,10 +55,20 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         // handler for 'senderDisconnected' event
         window.castReceiverManager.onSenderDisconnected = function(event) {
-            console.log('Received Sender Disconnected event: ' + event.data);
             if (window.castReceiverManager.getSenders().length == 0) {
                 window.close();
+                return;
             }
+            $scope.$apply(function() {
+                var id = getId(event.senderId);
+                for (var i = 0; i < $scope.chars.data.length; i++) {
+                    var p = $scope.chars.data[i];
+                    if (p.id === id) {
+                        $scope.chars.data.splice(i, 1);
+                        return;
+                    }
+                }
+            });
         };
 
         // create a CastMessageBus to handle messages for a custom namespace
@@ -90,6 +100,5 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
         appConfig.maxInactivity = 6000;
 
         window.castReceiverManager.start(appConfig);
-        console.log('Receiver Manager started');
     }
 ]);
