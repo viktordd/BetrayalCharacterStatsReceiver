@@ -34,21 +34,15 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             return null;
         }
 
-        cast.receiver.logger.setLevelValue(0);
         window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-        console.log('Starting Receiver Manager');
 
         // handler for the 'ready' event
         window.castReceiverManager.onReady = function(event) {
-            console.log('Received Ready event: ' + JSON.stringify(event.data));
             window.castReceiverManager.setApplicationState('Application status is ready...');
         };
 
-        // handler for 'senderconnected' event
+        // handler for 'senderConnected' event
         window.castReceiverManager.onSenderConnected = function(event) {
-            console.log('Received Sender Connected event: ' + JSON.stringify(event.senderId));
-            console.log(window.castReceiverManager.getSender(event.data).userAgent);
-
             $scope.$apply(function() {
                 var id = getId(event.senderId);
                 var player = find(id);
@@ -59,7 +53,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             });
         };
 
-        // handler for 'senderdisconnected' event
+        // handler for 'senderDisconnected' event
         window.castReceiverManager.onSenderDisconnected = function(event) {
             console.log('Received Sender Disconnected event: ' + event.data);
             if (window.castReceiverManager.getSenders().length == 0) {
@@ -72,8 +66,6 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
 
         // handler for the CastMessageBus message event
         window.messageBus.onMessage = function(event) {
-            console.log('Message [' + event.senderId + ']: ' + event.data);
-
             $scope.$apply(function() {
                 var id = getId(event.senderId);
                 var player = find(id);
