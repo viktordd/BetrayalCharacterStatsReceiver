@@ -50,7 +50,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             console.log(window.castReceiverManager.getSender(event.data).userAgent);
 
             $scope.$apply(function() {
-                var id = getId(senderId);
+                var id = getId(event.senderId);
                 var player = find(id);
                 if (!player)
                     $scope.chars.data.push({
@@ -75,7 +75,7 @@ angular.module('betrayalCharacterStatsReceiver').controller('mainCtrl', ['$scope
             console.log('Message [' + event.senderId + ']: ' + event.data);
 
             $scope.$apply(function() {
-                var id = getId(senderId);
+                var id = getId(event.senderId);
                 var player = find(id);
 
                 if (player) {
