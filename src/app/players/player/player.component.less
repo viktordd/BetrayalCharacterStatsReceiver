@@ -1,0 +1,138 @@
+@scale: 0.415;
+
+@speedXOffset: 118px;
+@speedYOffset: 23px;
+@mightXOffset: 87px;
+@mightYOffset: 104px;
+@sanityXOffset: 5px;
+@sanityYOffset: 104px;
+@knowledgeXOffset: 1px;
+@knowledgeYOffset: 23px;
+
+.char {
+	width: 720px * @scale;
+	height: 691px * @scale;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	margin-left: -720px * @scale / 2;
+}
+
+.generate-char-img(blue_madame_zostra);
+.generate-char-img(blue_vivian_lopez);
+.generate-char-img(green_brandon_jaspers);
+.generate-char-img(green_peter_akimoto);
+.generate-char-img(purple_heather_granville);
+.generate-char-img(purple_jenny_leclerc);
+.generate-char-img(red_darrin_flash_williams);
+.generate-char-img(red_ox_bellows);
+.generate-char-img(white_father_rhinehardt);
+.generate-char-img(white_professor_longfellow);
+.generate-char-img(yellow_missy_dubourde);
+.generate-char-img(yellow_zoe_ingstrom);
+
+.generate-char-img(@char) {
+    .@{char} .char  {
+	    background-image: url("../../../assets/char_@{char}.png");
+    }
+}
+
+.generate-pin(might, 93px, 108px);
+.generate-pin(speed, 120px, 77px);
+.generate-pin(sanity, 93px, 108px);
+.generate-pin(knowledge, 120px, 77px);
+
+.generate-pin(@pin, @width, @height) {
+    .char .@{pin} {
+	    width: @width * @scale;
+	    height: @height * @scale;
+	    background-size: contain;
+	    background-repeat: no-repeat;
+	    background-image: url("../../../assets/pin_@{pin}.png");
+	    position: absolute;
+    }
+}
+
+.generate-positions(blue_madame_zostra, speed, 200px, 544px, 126px, 317px, 8);
+.generate-positions(blue_madame_zostra, might, 143px, 282px, 336px, 143px, 8);
+.generate-positions(blue_madame_zostra, sanity, 570px, 282px, 377px, 143px, 8);
+.generate-positions(blue_madame_zostra, knowledge, 513px, 545px, 588px, 316px, 8);
+
+.generate-positions(blue_vivian_lopez, speed, 204px, 545px, 130px, 318px, 8);
+.generate-positions(blue_vivian_lopez, might, 147px, 280px, 339px, 140px, 8);
+.generate-positions(blue_vivian_lopez, sanity, 571px, 281px, 380px, 141px, 8);
+.generate-positions(blue_vivian_lopez, knowledge, 515px, 544px, 591px, 316px, 8);
+
+.generate-positions(green_brandon_jaspers, speed, 201px, 542px, 129px, 314px, 8);
+.generate-positions(green_brandon_jaspers, might, 143px, 277px, 336px, 138px, 8);
+.generate-positions(green_brandon_jaspers, sanity, 571px, 277px, 378px, 138px, 8);
+.generate-positions(green_brandon_jaspers, knowledge, 515px, 540px, 589px, 312px, 8);
+
+.generate-positions(green_peter_akimoto, speed, 205px, 539px, 128px, 313px, 8);
+.generate-positions(green_peter_akimoto, might, 144px, 277px, 336px, 137px, 8);
+.generate-positions(green_peter_akimoto, sanity, 573px, 276px, 380px, 135px, 8);
+.generate-positions(green_peter_akimoto, knowledge, 516px, 538px, 591px, 311px, 8);
+
+.generate-positions(purple_heather_granville, speed, 206px, 543px, 134px, 316px, 8);
+.generate-positions(purple_heather_granville, might, 147px, 278px, 340px, 138px, 8);
+.generate-positions(purple_heather_granville, sanity, 575px, 277px, 382px, 138px, 8);
+.generate-positions(purple_heather_granville, knowledge, 522px, 538px, 595px, 309px, 8);
+
+.generate-positions(purple_jenny_leclerc, speed, 203px, 545px, 134px, 317px, 8);
+.generate-positions(purple_jenny_leclerc, might, 148px, 280px, 340px, 141px, 8);
+.generate-positions(purple_jenny_leclerc, sanity, 573px, 280px, 380px, 141px, 8);
+.generate-positions(purple_jenny_leclerc, knowledge, 521px, 544px, 593px, 315px, 8);
+
+.generate-positions(red_darrin_flash_williams, speed, 203px, 544px, 129px, 317px, 8);
+.generate-positions(red_darrin_flash_williams, might, 145px, 278px, 339px, 139px, 8);
+.generate-positions(red_darrin_flash_williams, sanity, 573px, 279px, 380px, 139px, 8);
+.generate-positions(red_darrin_flash_williams, knowledge, 517px, 545px, 591px, 316px, 8);
+
+.generate-positions(red_ox_bellows, speed, 206px, 541px, 129px, 315px, 8);
+.generate-positions(red_ox_bellows, might, 145px, 280px, 336px, 141px, 8);
+.generate-positions(red_ox_bellows, sanity, 568px, 279px, 376px, 138px, 8);
+.generate-positions(red_ox_bellows, knowledge, 513px, 542px, 589px, 314px, 8);
+
+.generate-positions(white_father_rhinehardt, speed, 205px, 554px, 133px, 326px, 8);
+.generate-positions(white_father_rhinehardt, might, 146px, 288px, 339px, 149px, 8);
+.generate-positions(white_father_rhinehardt, sanity, 574px, 287px, 380px, 148px, 8);
+.generate-positions(white_father_rhinehardt, knowledge, 519px, 550px, 591px, 321px, 8);
+
+.generate-positions(white_professor_longfellow, speed, 203px, 543px, 131px, 315px, 8);
+.generate-positions(white_professor_longfellow, might, 147px, 278px, 340px, 138px, 8);
+.generate-positions(white_professor_longfellow, sanity, 573px, 280px, 379px, 140px, 8);
+.generate-positions(white_professor_longfellow, knowledge, 518px, 544px, 591px, 315px, 8);
+
+.generate-positions(yellow_missy_dubourde, speed, 202px, 538px, 126px, 312px, 8);
+.generate-positions(yellow_missy_dubourde, might, 142px, 273px, 334px, 132px, 8);
+.generate-positions(yellow_missy_dubourde, sanity, 570px, 272px, 378px, 131px, 8);
+.generate-positions(yellow_missy_dubourde, knowledge, 513px, 537px, 588px, 309px, 8);
+
+.generate-positions(yellow_zoe_ingstrom, speed, 204px, 534px, 129px, 308px, 8);
+.generate-positions(yellow_zoe_ingstrom, might, 144px, 273px, 336px, 133px, 8);
+.generate-positions(yellow_zoe_ingstrom, sanity, 572px, 270px, 379px, 130px, 8);
+.generate-positions(yellow_zoe_ingstrom, knowledge, 516px, 535px, 590px, 306px, 8);
+
+.generate-positions(@char, @pin, @xMin, @yMin, @xMax, @yMax, @n, @i: 0) when (@i =< @n) {
+    
+    @xOffset: "@{pin}XOffset";
+    @yOffset: "@{pin}YOffset";
+
+	@currXMin: (@xMin - @@xOffset) * @scale;
+	@currYMin: (@yMin - @@yOffset) * @scale;
+	@currXMax: (@xMax - @@xOffset) * @scale;
+	@currYMax: (@yMax - @@yOffset) * @scale;
+
+	@xDelta: (@currXMax - @currXMin) / @n;
+	@yDelta: (@currYMax - @currYMin) / @n;
+    
+    .@{char} .char .@{pin}.p-@{i} {
+        left: @currXMin + (@xDelta * (@i));
+        top: (@currYMin + (@yDelta * (@i)));
+    }
+
+    .generate-positions(@char, @pin, @xMin, @yMin, @xMax, @yMax, @n, (@i + 1));
+}

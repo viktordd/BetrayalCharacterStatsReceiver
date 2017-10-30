@@ -1,0 +1,78 @@
+.player-container {
+	height: 330px;
+	width: 390px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position-y: bottom;
+	position: relative;
+	float: left;
+	margin-top: 19px;
+	margin-left: 22px;
+	border: 1px solid gray;
+	border-radius: 10px 10px;
+	overflow: hidden;
+	background: black;
+}
+
+.name {
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: black;
+	padding-bottom: 3px;
+}
+
+.stats {
+	font-size: 14px;
+	margin: 3px;
+}
+.stats span {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+	text-align: right;
+}
+
+.blue_madame_zostra .name,
+.blue_vivian_lopez .name {
+	background-color: #1797C5;
+}
+
+.green_brandon_jaspers .name,
+.green_peter_akimoto .name {
+	background-color: #43A548;
+}
+
+.purple_heather_granville .name,
+.purple_jenny_leclerc .name {
+	background-color: #A64C8D;
+}
+
+.red_darrin_flash_williams .name,
+.red_ox_bellows .name {
+	background-color: #9E2D31;
+}
+
+.white_father_rhinehardt .name,
+.white_professor_longfellow .name {
+	background-color: #EEEBE9;
+}
+
+.yellow_missy_dubourde .name,
+.yellow_zoe_ingstrom .name {
+	background-color: #D6963E;
+}
+
+.stats .speed.init,
+.stats .might.init,
+.stats .sanity.init,
+.stats .knowledge.init {
+	color: lightgreen;
+}
