@@ -5,7 +5,7 @@ import { CONFIG } from '../config';
 @Injectable()
 export class MessageBusService {
     private serviceId = 'MessageBusService';
-    context: any;
+    manager: any;
     messageBus: any;
     onMessage: EventEmitter<any> = new EventEmitter();
 
@@ -20,10 +20,11 @@ export class MessageBusService {
 
         console.log(this.serviceId + '.init');
 
-        this.context = this.castReceiverManagerService.context;
+        this.manager = this.castReceiverManagerService.manager;
 
-        this.context.addCustomMessageListener(CONFIG.chromecastNamespace, function (customEvent) {
-            this.onMessage.next(customEvent);
+        const service = this;
+        this.manager.addCustomMessageListener(CONFIG.chromecastNamespace.betrayalCharacterStats, function (event) {
+            service.onMessage.next(event);
         });
 
         return true;

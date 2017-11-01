@@ -1,5 +1,7 @@
 export let CONFIG = {
-    chromecastNamespace: 'urn:x-cast:com.google.cast.betrayalCharacterStats',
+    chromecastNamespace: {
+        betrayalCharacterStats: 'urn:x-cast:com.google.cast.betrayalCharacterStats',
+    },
     stats: {
         blue_madame_zostra: {
             speed: [0, 2, 3, 3, 5, 5, 6, 6, 7],

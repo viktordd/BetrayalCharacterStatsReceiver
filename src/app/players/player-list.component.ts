@@ -25,7 +25,7 @@ export class PlayerListComponent implements OnInit {
     this.messageBusService.onMessage.subscribe(this.onMessage);
 
     // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-    this.messageBusService.context.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+    this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
   }
 
   private onSenderConnected(id: string) {

@@ -137,7 +137,9 @@ var AppModule = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CONFIG; });
 var CONFIG = {
-    chromecastNamespace: 'urn:x-cast:com.google.cast.betrayalCharacterStats',
+    chromecastNamespace: {
+        betrayalCharacterStats: 'urn:x-cast:com.google.cast.betrayalCharacterStats',
+    },
     stats: {
         blue_madame_zostra: {
             speed: [0, 2, 3, 3, 5, 5, 6, 6, 7],
@@ -324,7 +326,7 @@ var PlayerListComponent = /** @class */ (function () {
         this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
         this.messageBusService.onMessage.subscribe(this.onMessage);
         // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-        this.messageBusService.context.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+        this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
     };
     PlayerListComponent.prototype.onSenderConnected = function (id) {
         var player = this.findPlayerById(id);
@@ -615,27 +617,27 @@ var CastReceiverManagerService = /** @class */ (function () {
         this.onSenderDisconnected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
         this.init = function () {
             console.log(_this.serviceId + '.init');
-            if (_this.context != null) {
+            if (_this.manager != null) {
                 return false;
             }
-            _this.context = cast.framework.CastReceiverContext.getInstance();
-            _this.context.onReady = function (event) {
+            _this.manager = cast.receiver.CastReceiverManager.getInstance();
+            _this.manager.onReady = function (event) {
                 console.log('Received Ready event: ' + JSON.stringify(event.data));
-                _this.context.setApplicationState('Application status is ready...');
+                _this.manager.setApplicationState('Application status is ready...');
             };
-            _this.context.onSenderConnected = function (event) {
+            _this.manager.onSenderConnected = function (event) {
                 console.log('Received Sender Connected event: ' + event.data);
-                console.log(_this.context.getSender(event.data).userAgent);
+                console.log(_this.manager.getSender(event.data).userAgent);
                 _this.onSenderConnected.next(_this.getId(event.senderId));
             };
-            _this.context.onSenderDisconnected = function (event) {
-                if (_this.context.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
+            _this.manager.onSenderDisconnected = function (event) {
+                if (_this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
                     window.close();
                     return;
                 }
                 _this.onSenderDisconnected.next(_this.getId(event.senderId));
             };
-            _this.context.onSystemVolumeChanged = function (event) {
+            _this.manager.onSystemVolumeChanged = function (event) {
                 console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' + event.data['muted']);
             };
             return true;
@@ -689,9 +691,10 @@ var MessageBusService = /** @class */ (function () {
                 return false;
             }
             console.log(_this.serviceId + '.init');
-            _this.context = _this.castReceiverManagerService.context;
-            _this.context.addCustomMessageListener(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* CONFIG */].chromecastNamespace, function (customEvent) {
-                this.onMessage.next(customEvent);
+            _this.manager = _this.castReceiverManagerService.manager;
+            var service = _this;
+            _this.manager.addCustomMessageListener(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats, function (event) {
+                service.onMessage.next(event);
             });
             return true;
         };
