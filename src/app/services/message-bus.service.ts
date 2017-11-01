@@ -21,11 +21,14 @@ export class MessageBusService {
         console.log(this.serviceId + '.init');
 
         this.manager = this.castReceiverManagerService.manager;
+        this.messageBus = this.manager.getCastMessageBus(CONFIG.chromecastNamespace.betrayalCharacterStats);
 
-        const service = this;
-        this.manager.addCustomMessageListener(CONFIG.chromecastNamespace.betrayalCharacterStats, function (event) {
-            service.onMessage.next(event);
-        });
+        this.messageBus.onMessage = (event) => {
+            this.onMessage.next(event);
+        };
+
+        // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
+        this.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
 
         return true;
     }

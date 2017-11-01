@@ -20,14 +20,11 @@ export class AppComponent implements OnInit {
     private castReceiverManagerService: CastReceiverManagerService) { }
 
   ngOnInit() {
-    this.messageBusService.init();
-
     this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
     this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
     this.messageBusService.onMessage.subscribe(this.onMessage);
 
-    // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-    this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+    this.messageBusService.init();
   }
 
   private onSenderConnected(id: string) {

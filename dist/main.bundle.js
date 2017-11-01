@@ -72,12 +72,10 @@ var AppComponent = /** @class */ (function () {
         this.players = [];
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.messageBusService.init();
         this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
         this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
         this.messageBusService.onMessage.subscribe(this.onMessage);
-        // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-        this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+        this.messageBusService.init();
     };
     AppComponent.prototype.onSenderConnected = function (id) {
         var player = this.findPlayerById(id);
@@ -700,10 +698,12 @@ var MessageBusService = /** @class */ (function () {
             }
             console.log(_this.serviceId + '.init');
             _this.manager = _this.castReceiverManagerService.manager;
-            var service = _this;
-            _this.manager.addCustomMessageListener(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats, function (event) {
-                service.onMessage.next(event);
-            });
+            _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
+            _this.messageBus.onMessage = function (event) {
+                _this.onMessage.next(event);
+            };
+            // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
+            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
             return true;
         };
     }
