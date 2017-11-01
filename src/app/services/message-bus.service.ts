@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 import { CastReceiverManagerService } from './cast-receiver-manager.service';
@@ -12,7 +12,7 @@ export class MessageBusService {
     messageBus: any;
     onMessage: Subject<Player> = new Subject();
 
-    constructor(private castReceiverManagerService: CastReceiverManagerService) { }
+    constructor(private castReceiverManagerService: CastReceiverManagerService, private zone: NgZone) { }
 
     public init = () => {
         this.castReceiverManagerService.init();
@@ -29,10 +29,12 @@ export class MessageBusService {
         this.messageBus.onMessage = (event) => {
             console.log(`Received Message: ${JSON.stringify(event)}`);
 
-            const player = new Player(this.castReceiverManagerService.getId(event.senderId));
-            Object.assign(player, JSON.parse(event.data));
+            this.zone.run(() => {
+                const player = new Player(this.castReceiverManagerService.getId(event.senderId));
+                Object.assign(player, JSON.parse(event.data));
 
-            this.onMessage.next(player);
+                this.onMessage.next(player);
+            });
         };
 
         // TODO: 60 minutes for testing, use default 10sec in prod by not setting maxInactivity

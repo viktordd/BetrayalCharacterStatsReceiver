@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 
 declare var cast: any;
@@ -10,6 +10,8 @@ export class CastReceiverManagerService {
 
     onSenderConnected: Subject<string> = new Subject();
     onSenderDisconnected: Subject<string> = new Subject();
+
+    constructor(private zone: NgZone) { }
 
     public init = () => {
         console.log(this.serviceId + '.init');
@@ -28,7 +30,9 @@ export class CastReceiverManagerService {
         this.manager.onSenderConnected = (event) => {
             console.log(`Received Sender Connected event: ${JSON.stringify(event)}`);
             console.log(this.manager.getSender(event.senderId));
-            this.onSenderConnected.next(this.getId(event.senderId));
+            this.zone.run(() => {
+                this.onSenderConnected.next(this.getId(event.senderId));
+            });
         };
 
         this.manager.onSenderDisconnected = (event) => {
@@ -37,7 +41,9 @@ export class CastReceiverManagerService {
                 window.close();
                 return;
             }
-            this.onSenderDisconnected.next(this.getId(event.senderId));
+            this.zone.run(() => {
+                this.onSenderDisconnected.next(this.getId(event.senderId));
+            });
         };
 
         this.manager.onSystemVolumeChanged = (event) => {

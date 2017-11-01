@@ -614,11 +614,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 
 
 var CastReceiverManagerService = /** @class */ (function () {
-    function CastReceiverManagerService() {
+    function CastReceiverManagerService(zone) {
         var _this = this;
+        this.zone = zone;
         this.serviceId = 'CastReceiverManagerService';
         this.onSenderConnected = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
         this.onSenderDisconnected = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
@@ -635,7 +639,9 @@ var CastReceiverManagerService = /** @class */ (function () {
             _this.manager.onSenderConnected = function (event) {
                 console.log("Received Sender Connected event: " + JSON.stringify(event));
                 console.log(_this.manager.getSender(event.senderId));
-                _this.onSenderConnected.next(_this.getId(event.senderId));
+                _this.zone.run(function () {
+                    _this.onSenderConnected.next(_this.getId(event.senderId));
+                });
             };
             _this.manager.onSenderDisconnected = function (event) {
                 console.log("Received Sender Disconnected event: " + JSON.stringify(event));
@@ -643,7 +649,9 @@ var CastReceiverManagerService = /** @class */ (function () {
                     window.close();
                     return;
                 }
-                _this.onSenderDisconnected.next(_this.getId(event.senderId));
+                _this.zone.run(function () {
+                    _this.onSenderDisconnected.next(_this.getId(event.senderId));
+                });
             };
             _this.manager.onSystemVolumeChanged = function (event) {
                 console.log("Received System Volume Changed event: " + JSON.stringify(event));
@@ -658,9 +666,11 @@ var CastReceiverManagerService = /** @class */ (function () {
         }
     };
     CastReceiverManagerService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])()
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */]) === "function" && _a || Object])
     ], CastReceiverManagerService);
     return CastReceiverManagerService;
+    var _a;
 }());
 
 //# sourceMappingURL=cast-receiver-manager.service.js.map
@@ -693,9 +703,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var MessageBusService = /** @class */ (function () {
-    function MessageBusService(castReceiverManagerService) {
+    function MessageBusService(castReceiverManagerService, zone) {
         var _this = this;
         this.castReceiverManagerService = castReceiverManagerService;
+        this.zone = zone;
         this.serviceId = 'MessageBusService';
         this.onMessage = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
         this.init = function () {
@@ -708,9 +719,11 @@ var MessageBusService = /** @class */ (function () {
             _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
             _this.messageBus.onMessage = function (event) {
                 console.log("Received Message: " + JSON.stringify(event));
-                var player = new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](_this.castReceiverManagerService.getId(event.senderId));
-                Object.assign(player, JSON.parse(event.data));
-                _this.onMessage.next(player);
+                _this.zone.run(function () {
+                    var player = new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](_this.castReceiverManagerService.getId(event.senderId));
+                    Object.assign(player, JSON.parse(event.data));
+                    _this.onMessage.next(player);
+                });
             };
             // TODO: 60 minutes for testing, use default 10sec in prod by not setting maxInactivity
             _this.manager.start({ statusText: 'Ready to play', maxInactivity: 60 * 60 });
@@ -719,10 +732,10 @@ var MessageBusService = /** @class */ (function () {
     }
     MessageBusService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["P" /* NgZone */]) === "function" && _b || Object])
     ], MessageBusService);
     return MessageBusService;
-    var _a;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=message-bus.service.js.map
