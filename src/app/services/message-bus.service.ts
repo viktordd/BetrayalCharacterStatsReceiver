@@ -27,7 +27,7 @@ export class MessageBusService {
         this.messageBus = this.manager.getCastMessageBus(CONFIG.chromecastNamespace.betrayalCharacterStats);
 
         this.messageBus.onMessage = (event) => {
-            console.log(`messageBus.onMessage: ${JSON.stringify(event)}`);
+            console.log(`Received Message: ${JSON.stringify(event)}`);
 
             const player = new Player(this.castReceiverManagerService.getId(event.senderId));
             Object.assign(player, JSON.parse(event.data));

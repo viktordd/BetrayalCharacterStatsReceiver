@@ -629,16 +629,16 @@ var CastReceiverManagerService = /** @class */ (function () {
             }
             _this.manager = cast.receiver.CastReceiverManager.getInstance();
             _this.manager.onReady = function (event) {
-                console.log("Received Ready event: " + event);
+                console.log("Received Ready event: " + JSON.stringify(event));
                 _this.manager.setApplicationState('Application status is ready...');
             };
             _this.manager.onSenderConnected = function (event) {
-                console.log("Received Sender Connected event: " + event);
+                console.log("Received Sender Connected event: " + JSON.stringify(event));
                 console.log(_this.manager.getSender(event.senderId));
                 _this.onSenderConnected.next(_this.getId(event.senderId));
             };
             _this.manager.onSenderDisconnected = function (event) {
-                console.log("Received Sender Disconnected event: " + event);
+                console.log("Received Sender Disconnected event: " + JSON.stringify(event));
                 if (_this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
                     window.close();
                     return;
@@ -646,7 +646,7 @@ var CastReceiverManagerService = /** @class */ (function () {
                 _this.onSenderDisconnected.next(_this.getId(event.senderId));
             };
             _this.manager.onSystemVolumeChanged = function (event) {
-                console.log("Received System Volume Changed event: " + event);
+                console.log("Received System Volume Changed event: " + JSON.stringify(event));
             };
             return true;
         };
@@ -707,7 +707,7 @@ var MessageBusService = /** @class */ (function () {
             _this.manager = _this.castReceiverManagerService.manager;
             _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
             _this.messageBus.onMessage = function (event) {
-                console.log("messageBus.onMessage: " + JSON.stringify(event));
+                console.log("Received Message: " + JSON.stringify(event));
                 var player = new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](_this.castReceiverManagerService.getId(event.senderId));
                 Object.assign(player, JSON.parse(event.data));
                 _this.onMessage.next(player);
