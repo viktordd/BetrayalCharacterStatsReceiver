@@ -90,16 +90,13 @@ var AppComponent = /** @class */ (function () {
             this.players.splice(pos, 1);
         }
     };
-    AppComponent.prototype.onMessage = function (event) {
-        console.log('messageBus.onMessage: ' + JSON.stringify(event['data']));
-        var payload = JSON.parse(event['data']);
-        var id = this.castReceiverManagerService.getId(event.senderId);
-        var player = this.findPlayerById(id);
-        if (player) {
-            Object.assign(player, JSON.parse(event.data));
+    AppComponent.prototype.onMessage = function (player) {
+        var pos = this.findPlayerPosById(player.id);
+        if (pos >= 0) {
+            Object.assign(this.players[pos], player);
         }
         else {
-            console.log('Player with id [' + event.senderId + '] could not be found!');
+            this.players.push(player);
         }
     };
     AppComponent.prototype.findPlayerById = function (id) {
@@ -632,15 +629,16 @@ var CastReceiverManagerService = /** @class */ (function () {
             }
             _this.manager = cast.receiver.CastReceiverManager.getInstance();
             _this.manager.onReady = function (event) {
-                console.log('Received Ready event: ' + JSON.stringify(event.data));
+                console.log("Received Ready event: " + event);
                 _this.manager.setApplicationState('Application status is ready...');
             };
             _this.manager.onSenderConnected = function (event) {
-                console.log('Received Sender Connected event: ' + event.data);
-                console.log(_this.manager.getSender(event.data).userAgent);
+                console.log("Received Sender Connected event: " + event);
+                console.log(_this.manager.getSender(event.senderId));
                 _this.onSenderConnected.next(_this.getId(event.senderId));
             };
             _this.manager.onSenderDisconnected = function (event) {
+                console.log("Received Sender Disconnected event: " + event);
                 if (_this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
                     window.close();
                     return;
@@ -648,7 +646,7 @@ var CastReceiverManagerService = /** @class */ (function () {
                 _this.onSenderDisconnected.next(_this.getId(event.senderId));
             };
             _this.manager.onSystemVolumeChanged = function (event) {
-                console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' + event.data['muted']);
+                console.log("Received System Volume Changed event: " + event);
             };
             return true;
         };
@@ -678,7 +676,8 @@ var CastReceiverManagerService = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__("../../../../../src/app/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__players_player_model__ = __webpack_require__("../../../../../src/app/players/player.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__config__ = __webpack_require__("../../../../../src/app/config.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -688,6 +687,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -705,12 +705,15 @@ var MessageBusService = /** @class */ (function () {
             }
             console.log(_this.serviceId + '.init');
             _this.manager = _this.castReceiverManagerService.manager;
-            _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
+            _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_4__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
             _this.messageBus.onMessage = function (event) {
-                _this.onMessage.next(event);
+                console.log("messageBus.onMessage: " + JSON.stringify(event));
+                var player = new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](_this.castReceiverManagerService.getId(event.senderId));
+                Object.assign(player, JSON.parse(event.data));
+                _this.onMessage.next(player);
             };
-            // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+            // TODO: 60 minutes for testing, use default 10sec in prod by not setting maxInactivity
+            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 60 * 60 });
             return true;
         };
     }

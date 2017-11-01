@@ -21,17 +21,18 @@ export class CastReceiverManagerService {
         this.manager = cast.receiver.CastReceiverManager.getInstance();
 
         this.manager.onReady = (event) => {
-            console.log('Received Ready event: ' + JSON.stringify(event.data));
+            console.log(`Received Ready event: ${event}`);
             this.manager.setApplicationState('Application status is ready...');
         };
 
         this.manager.onSenderConnected = (event) => {
-            console.log('Received Sender Connected event: ' + event.data);
-            console.log(this.manager.getSender(event.data).userAgent);
+            console.log(`Received Sender Connected event: ${event}`);
+            console.log(this.manager.getSender(event.senderId));
             this.onSenderConnected.next(this.getId(event.senderId));
         };
 
         this.manager.onSenderDisconnected = (event) => {
+            console.log(`Received Sender Disconnected event: ${event}`);
             if (this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
                 window.close();
                 return;
@@ -40,7 +41,7 @@ export class CastReceiverManagerService {
         };
 
         this.manager.onSystemVolumeChanged = (event) => {
-            console.log('Received System Volume Changed event: ' + event.data['level'] + ' ' + event.data['muted']);
+            console.log(`Received System Volume Changed event: ${event}`);
         };
 
         return true;

@@ -41,17 +41,13 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private onMessage(event) {
-    console.log('messageBus.onMessage: ' + JSON.stringify(event['data']));
-    const payload = JSON.parse(event['data']);
+  private onMessage(player: Player) {
+    const pos = this.findPlayerPosById(player.id);
 
-    const id = this.castReceiverManagerService.getId(event.senderId);
-    const player = this.findPlayerById(id);
-
-    if (player) {
-      Object.assign(player, JSON.parse(event.data));
+    if (pos >= 0) {
+      Object.assign(this.players[pos], player);
     } else {
-      console.log('Player with id [' + event.senderId + '] could not be found!');
+      this.players.push(player);
     }
   }
 
