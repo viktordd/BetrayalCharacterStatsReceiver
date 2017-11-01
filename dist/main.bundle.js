@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<main>\n  <app-player-list></app-player-list>\n</main>"
+module.exports = "<main>\n  <app-player-list [players]=\"players\"></app-player-list>\n  <!-- <app-player-test [players]=\"players\"></app-player-test> -->\n</main>"
 
 /***/ }),
 
@@ -48,25 +48,92 @@ module.exports = "<main>\n  <app-player-list></app-player-list>\n</main>"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__players_player_model__ = __webpack_require__("../../../../../src/app/players/player.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 var AppComponent = /** @class */ (function () {
-    function AppComponent() {
+    function AppComponent(messageBusService, castReceiverManagerService) {
+        this.messageBusService = messageBusService;
+        this.castReceiverManagerService = castReceiverManagerService;
         this.title = 'Betrayal Character Stats';
+        this.players = [];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        this.messageBusService.init();
+        this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
+        this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
+        this.messageBusService.onMessage.subscribe(this.onMessage);
+        // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
+        this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
+    };
+    AppComponent.prototype.onSenderConnected = function (id) {
+        var player = this.findPlayerById(id);
+        if (!player) {
+            this.players.push(new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](id));
+        }
+    };
+    AppComponent.prototype.onSenderDisconnected = function (id) {
+        var pos = this.findPlayerPosById(id);
+        if (pos >= 0) {
+            this.players.splice(pos, 1);
+        }
+    };
+    AppComponent.prototype.onMessage = function (event) {
+        console.log('messageBus.onMessage: ' + JSON.stringify(event['data']));
+        var payload = JSON.parse(event['data']);
+        var id = this.castReceiverManagerService.getId(event.senderId);
+        var player = this.findPlayerById(id);
+        if (player) {
+            Object.assign(player, JSON.parse(event.data));
+        }
+        else {
+            console.log('Player with id [' + event.senderId + '] could not be found!');
+        }
+    };
+    AppComponent.prototype.findPlayerById = function (id) {
+        for (var i = 0; i < this.players.length; i++) {
+            var p = this.players[i];
+            if (p.id === id) {
+                return p;
+            }
+        }
+        return null;
+    };
+    AppComponent.prototype.findPlayerPosById = function (id) {
+        for (var i = 0; i < this.players.length; i++) {
+            var p = this.players[i];
+            if (p.id === id) {
+                return i;
+            }
+        }
+        return -1;
+    };
+    AppComponent.prototype.trackByPlayers = function (index, player) {
+        return player.id;
+    };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-root',
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
-        })
+        }),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _b || Object])
     ], AppComponent);
     return AppComponent;
+    var _a, _b;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -288,7 +355,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/players/player-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-player class=\"reveal-animation\"  *ngFor=\"let player of players; trackBy:trackByPlayers\" [player]=\"player\"></app-player>\r\n<!-- <app-player-test [players]=\"players\"></app-player-test> -->\r\n"
+module.exports = "<app-player class=\"reveal-animation\"  *ngFor=\"let player of players; trackBy:trackByPlayers\" [player]=\"player\"></app-player>"
 
 /***/ }),
 
@@ -298,9 +365,6 @@ module.exports = "<app-player class=\"reveal-animation\"  *ngFor=\"let player of
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PlayerListComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__player_model__ = __webpack_require__("../../../../../src/app/players/player.model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -311,78 +375,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-
-
-
 var PlayerListComponent = /** @class */ (function () {
-    function PlayerListComponent(messageBusService, castReceiverManagerService) {
-        this.messageBusService = messageBusService;
-        this.castReceiverManagerService = castReceiverManagerService;
+    function PlayerListComponent() {
         this.players = [];
     }
-    PlayerListComponent.prototype.ngOnInit = function () {
-        this.messageBusService.init();
-        this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
-        this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
-        this.messageBusService.onMessage.subscribe(this.onMessage);
-        // TODO: 100 minutes for testing, use default 10sec in prod by not setting maxInactivity
-        this.messageBusService.manager.start({ statusText: 'Ready to play', maxInactivity: 6000 });
-    };
-    PlayerListComponent.prototype.onSenderConnected = function (id) {
-        var player = this.findPlayerById(id);
-        if (!player) {
-            this.players.push(new __WEBPACK_IMPORTED_MODULE_3__player_model__["a" /* Player */](id));
-        }
-    };
-    PlayerListComponent.prototype.onSenderDisconnected = function (id) {
-        var pos = this.findPlayerPosById(id);
-        if (pos >= 0) {
-            this.players.splice(pos, 1);
-        }
-    };
-    PlayerListComponent.prototype.onMessage = function (event) {
-        console.log('messageBus.onMessage: ' + JSON.stringify(event['data']));
-        var payload = JSON.parse(event['data']);
-        var id = this.castReceiverManagerService.getId(event.senderId);
-        var player = this.findPlayerById(id);
-        if (player) {
-            Object.assign(player, JSON.parse(event.data));
-        }
-        else {
-            console.log('Player with id [' + event.senderId + '] could not be found!');
-        }
-    };
-    PlayerListComponent.prototype.findPlayerById = function (id) {
-        for (var i = 0; i < this.players.length; i++) {
-            var p = this.players[i];
-            if (p.id === id) {
-                return p;
-            }
-        }
-        return null;
-    };
-    PlayerListComponent.prototype.findPlayerPosById = function (id) {
-        for (var i = 0; i < this.players.length; i++) {
-            var p = this.players[i];
-            if (p.id === id) {
-                return i;
-            }
-        }
-        return -1;
-    };
-    PlayerListComponent.prototype.trackByPlayers = function (index, player) {
-        return player.id;
-    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["E" /* Input */])(),
+        __metadata("design:type", Array)
+    ], PlayerListComponent.prototype, "players", void 0);
     PlayerListComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-player-list',
             template: __webpack_require__("../../../../../src/app/players/player-list.component.html"),
             styles: [__webpack_require__("../../../../../src/app/players/player-list.component.css")]
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _b || Object])
+        })
     ], PlayerListComponent);
     return PlayerListComponent;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=player-list.component.js.map
