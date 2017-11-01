@@ -1,4 +1,6 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+
 import { CastReceiverManagerService } from './cast-receiver-manager.service';
 import { CONFIG } from '../config';
 
@@ -7,7 +9,7 @@ export class MessageBusService {
     private serviceId = 'MessageBusService';
     manager: any;
     messageBus: any;
-    onMessage: EventEmitter<any> = new EventEmitter();
+    onMessage: Subject<any> = new Subject();
 
     constructor(private castReceiverManagerService: CastReceiverManagerService) { }
 

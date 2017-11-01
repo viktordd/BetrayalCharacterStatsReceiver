@@ -1,4 +1,5 @@
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 declare var cast: any;
 
@@ -7,8 +8,8 @@ export class CastReceiverManagerService {
     private serviceId = 'CastReceiverManagerService';
     manager: any;
 
-    onSenderConnected: EventEmitter<number> = new EventEmitter();
-    onSenderDisconnected: EventEmitter<number> = new EventEmitter();
+    onSenderConnected: Subject<string> = new Subject();
+    onSenderDisconnected: Subject<string> = new Subject();
 
     public init = () => {
         console.log(this.serviceId + '.init');
@@ -45,7 +46,7 @@ export class CastReceiverManagerService {
         return true;
     }
 
-    public getId(senderId) {
+    public getId(senderId): string {
         const indx = senderId.indexOf(':');
         if (indx >= 0) {
             return senderId.substr(0, indx);

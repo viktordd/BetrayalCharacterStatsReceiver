@@ -20,9 +20,9 @@ export class AppComponent implements OnInit {
     private castReceiverManagerService: CastReceiverManagerService) { }
 
   ngOnInit() {
-    this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
-    this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
-    this.messageBusService.onMessage.subscribe(this.onMessage);
+    this.castReceiverManagerService.onSenderConnected.subscribe(id => this.onSenderConnected(id));
+    this.castReceiverManagerService.onSenderDisconnected.subscribe(id => this.onSenderDisconnected(id));
+    this.messageBusService.onMessage.subscribe(event => this.onMessage(event));
 
     this.messageBusService.init();
   }

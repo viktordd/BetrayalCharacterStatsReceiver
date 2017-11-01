@@ -72,9 +72,10 @@ var AppComponent = /** @class */ (function () {
         this.players = [];
     }
     AppComponent.prototype.ngOnInit = function () {
-        this.castReceiverManagerService.onSenderConnected.subscribe(this.onSenderConnected);
-        this.castReceiverManagerService.onSenderDisconnected.subscribe(this.onSenderDisconnected);
-        this.messageBusService.onMessage.subscribe(this.onMessage);
+        var _this = this;
+        this.castReceiverManagerService.onSenderConnected.subscribe(function (id) { return _this.onSenderConnected(id); });
+        this.castReceiverManagerService.onSenderDisconnected.subscribe(function (id) { return _this.onSenderDisconnected(id); });
+        this.messageBusService.onMessage.subscribe(function (event) { return _this.onMessage(event); });
         this.messageBusService.init();
     };
     AppComponent.prototype.onSenderConnected = function (id) {
@@ -608,6 +609,8 @@ var PlayerComponent = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CastReceiverManagerService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -615,12 +618,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
+
 var CastReceiverManagerService = /** @class */ (function () {
     function CastReceiverManagerService() {
         var _this = this;
         this.serviceId = 'CastReceiverManagerService';
-        this.onSenderConnected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
-        this.onSenderDisconnected = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.onSenderConnected = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
+        this.onSenderDisconnected = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
         this.init = function () {
             console.log(_this.serviceId + '.init');
             if (_this.manager != null) {
@@ -671,8 +675,10 @@ var CastReceiverManagerService = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MessageBusService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__config__ = __webpack_require__("../../../../../src/app/config.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__ = __webpack_require__("../../../../rxjs/Subject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__config__ = __webpack_require__("../../../../../src/app/config.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -685,12 +691,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var MessageBusService = /** @class */ (function () {
     function MessageBusService(castReceiverManagerService) {
         var _this = this;
         this.castReceiverManagerService = castReceiverManagerService;
         this.serviceId = 'MessageBusService';
-        this.onMessage = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["w" /* EventEmitter */]();
+        this.onMessage = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
         this.init = function () {
             _this.castReceiverManagerService.init();
             if (_this.messageBus != null) {
@@ -698,7 +705,7 @@ var MessageBusService = /** @class */ (function () {
             }
             console.log(_this.serviceId + '.init');
             _this.manager = _this.castReceiverManagerService.manager;
-            _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_2__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
+            _this.messageBus = _this.manager.getCastMessageBus(__WEBPACK_IMPORTED_MODULE_3__config__["a" /* CONFIG */].chromecastNamespace.betrayalCharacterStats);
             _this.messageBus.onMessage = function (event) {
                 _this.onMessage.next(event);
             };
@@ -709,7 +716,7 @@ var MessageBusService = /** @class */ (function () {
     }
     MessageBusService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _a || Object])
     ], MessageBusService);
     return MessageBusService;
     var _a;
