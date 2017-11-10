@@ -14,7 +14,7 @@ export class MessageBusService {
 
     constructor(private castReceiverManagerService: CastReceiverManagerService, private zone: NgZone) { }
 
-    public init = () => {
+    public init = (statusText: string) => {
         this.castReceiverManagerService.init();
 
         if (this.messageBus != null) {
@@ -37,7 +37,7 @@ export class MessageBusService {
             });
         };
 
-        this.manager.start({ statusText: 'Ready to play', maxInactivity: 30 * 60 });
+        this.manager.start({ statusText: statusText, maxInactivity: 30 * 60 });
 
         return true;
     }

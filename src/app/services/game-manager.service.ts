@@ -22,7 +22,7 @@ export class GameManagerService {
         this.castReceiverManagerService.onSenderDisconnected.subscribe(id => this.onSenderDisconnected(id));
         this.messageBusService.onMessage.subscribe(event => this.onMessage(event));
 
-        this.messageBusService.init();
+        this.messageBusService.init('Betrayal Character Stats');
     }
 
     private onSenderConnected(id: string) {

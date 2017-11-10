@@ -669,7 +669,7 @@ var GameManagerService = /** @class */ (function () {
         this.castReceiverManagerService.onSenderConnected.subscribe(function (id) { return _this.onSenderConnected(id); });
         this.castReceiverManagerService.onSenderDisconnected.subscribe(function (id) { return _this.onSenderDisconnected(id); });
         this.messageBusService.onMessage.subscribe(function (event) { return _this.onMessage(event); });
-        this.messageBusService.init();
+        this.messageBusService.init('Betrayal Character Stats');
     };
     GameManagerService.prototype.onSenderConnected = function (id) {
         var player = this.findPlayerById(id);
@@ -757,7 +757,7 @@ var MessageBusService = /** @class */ (function () {
         this.zone = zone;
         this.serviceId = 'MessageBusService';
         this.onMessage = new __WEBPACK_IMPORTED_MODULE_1_rxjs_Subject__["Subject"]();
-        this.init = function () {
+        this.init = function (statusText) {
             _this.castReceiverManagerService.init();
             if (_this.messageBus != null) {
                 return false;
@@ -773,7 +773,7 @@ var MessageBusService = /** @class */ (function () {
                     _this.onMessage.next(player);
                 });
             };
-            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 30 * 60 });
+            _this.manager.start({ statusText: statusText, maxInactivity: 30 * 60 });
             return true;
         };
     }
