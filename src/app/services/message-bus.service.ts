@@ -37,8 +37,7 @@ export class MessageBusService {
             });
         };
 
-        // TODO: 60 minutes for testing, use default 10sec in prod by not setting maxInactivity
-        this.manager.start({ statusText: 'Ready to play', maxInactivity: 60 * 60 });
+        this.manager.start({ statusText: 'Ready to play', maxInactivity: 30 * 60 });
 
         return true;
     }

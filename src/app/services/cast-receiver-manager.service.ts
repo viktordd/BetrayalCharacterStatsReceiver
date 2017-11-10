@@ -24,7 +24,6 @@ export class CastReceiverManagerService {
 
         this.manager.onReady = (event) => {
             console.log(`Received Ready event: ${JSON.stringify(event)}`);
-            this.manager.setApplicationState('Application status is ready...');
         };
 
         this.manager.onSenderConnected = (event) => {

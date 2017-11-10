@@ -584,7 +584,6 @@ var CastReceiverManagerService = /** @class */ (function () {
             _this.manager = cast.receiver.CastReceiverManager.getInstance();
             _this.manager.onReady = function (event) {
                 console.log("Received Ready event: " + JSON.stringify(event));
-                _this.manager.setApplicationState('Application status is ready...');
             };
             _this.manager.onSenderConnected = function (event) {
                 console.log("Received Sender Connected event: " + JSON.stringify(event));
@@ -771,8 +770,7 @@ var MessageBusService = /** @class */ (function () {
                     _this.onMessage.next(player);
                 });
             };
-            // TODO: 60 minutes for testing, use default 10sec in prod by not setting maxInactivity
-            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 60 * 60 });
+            _this.manager.start({ statusText: 'Ready to play', maxInactivity: 30 * 60 });
             return true;
         };
     }
