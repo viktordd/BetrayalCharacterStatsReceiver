@@ -48,9 +48,7 @@ module.exports = "<main>\n  <app-player-list [players]=\"players\"></app-player-
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__players_player_model__ = __webpack_require__("../../../../../src/app/players/player.model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_game_manager_service__ = __webpack_require__("../../../../../src/app/services/game-manager.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,63 +60,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
 var AppComponent = /** @class */ (function () {
-    function AppComponent(messageBusService, castReceiverManagerService) {
-        this.messageBusService = messageBusService;
-        this.castReceiverManagerService = castReceiverManagerService;
+    function AppComponent(gameManagerService) {
+        this.gameManagerService = gameManagerService;
         this.title = 'Betrayal Character Stats';
         this.players = [];
     }
     AppComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.castReceiverManagerService.onSenderConnected.subscribe(function (id) { return _this.onSenderConnected(id); });
-        this.castReceiverManagerService.onSenderDisconnected.subscribe(function (id) { return _this.onSenderDisconnected(id); });
-        this.messageBusService.onMessage.subscribe(function (event) { return _this.onMessage(event); });
-        this.messageBusService.init();
-    };
-    AppComponent.prototype.onSenderConnected = function (id) {
-        var player = this.findPlayerById(id);
-        if (!player) {
-            this.players.push(new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](id));
-        }
-    };
-    AppComponent.prototype.onSenderDisconnected = function (id) {
-        var pos = this.findPlayerPosById(id);
-        if (pos >= 0) {
-            this.players.splice(pos, 1);
-        }
-    };
-    AppComponent.prototype.onMessage = function (player) {
-        var pos = this.findPlayerPosById(player.id);
-        if (pos >= 0) {
-            Object.assign(this.players[pos], player);
-        }
-        else {
-            this.players.push(player);
-        }
-    };
-    AppComponent.prototype.findPlayerById = function (id) {
-        for (var i = 0; i < this.players.length; i++) {
-            var p = this.players[i];
-            if (p.id === id) {
-                return p;
-            }
-        }
-        return null;
-    };
-    AppComponent.prototype.findPlayerPosById = function (id) {
-        for (var i = 0; i < this.players.length; i++) {
-            var p = this.players[i];
-            if (p.id === id) {
-                return i;
-            }
-        }
-        return -1;
-    };
-    AppComponent.prototype.trackByPlayers = function (index, player) {
-        return player.id;
+        this.gameManagerService.init();
+        this.players = this.gameManagerService.Players;
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -126,10 +76,10 @@ var AppComponent = /** @class */ (function () {
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__services_message_bus_service__["a" /* MessageBusService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__services_game_manager_service__["a" /* GameManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__services_game_manager_service__["a" /* GameManagerService */]) === "function" && _a || Object])
     ], AppComponent);
     return AppComponent;
-    var _a, _b;
+    var _a;
 }());
 
 //# sourceMappingURL=app.component.js.map
@@ -674,6 +624,102 @@ var CastReceiverManagerService = /** @class */ (function () {
 }());
 
 //# sourceMappingURL=cast-receiver-manager.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/services/game-manager.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GameManagerService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__players_player_model__ = __webpack_require__("../../../../../src/app/players/player.model.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var GameManagerService = /** @class */ (function () {
+    function GameManagerService(messageBusService, castReceiverManagerService) {
+        this.messageBusService = messageBusService;
+        this.castReceiverManagerService = castReceiverManagerService;
+        this.players = [];
+    }
+    Object.defineProperty(GameManagerService.prototype, "Players", {
+        get: function () {
+            return this.players;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    GameManagerService.prototype.init = function () {
+        var _this = this;
+        this.castReceiverManagerService.onSenderConnected.subscribe(function (id) { return _this.onSenderConnected(id); });
+        this.castReceiverManagerService.onSenderDisconnected.subscribe(function (id) { return _this.onSenderDisconnected(id); });
+        this.messageBusService.onMessage.subscribe(function (event) { return _this.onMessage(event); });
+        this.messageBusService.init();
+    };
+    GameManagerService.prototype.onSenderConnected = function (id) {
+        var player = this.findPlayerById(id);
+        if (!player) {
+            this.players.push(new __WEBPACK_IMPORTED_MODULE_3__players_player_model__["a" /* Player */](id));
+        }
+    };
+    GameManagerService.prototype.onSenderDisconnected = function (id) {
+        var pos = this.findPlayerPosById(id);
+        if (pos >= 0) {
+            this.players.splice(pos, 1);
+        }
+    };
+    GameManagerService.prototype.onMessage = function (player) {
+        var pos = this.findPlayerPosById(player.id);
+        if (pos >= 0) {
+            Object.assign(this.players[pos], player);
+        }
+        else {
+            this.players.push(player);
+        }
+    };
+    GameManagerService.prototype.findPlayerById = function (id) {
+        for (var i = 0; i < this.players.length; i++) {
+            var p = this.players[i];
+            if (p.id === id) {
+                return p;
+            }
+        }
+        return null;
+    };
+    GameManagerService.prototype.findPlayerPosById = function (id) {
+        for (var i = 0; i < this.players.length; i++) {
+            var p = this.players[i];
+            if (p.id === id) {
+                return i;
+            }
+        }
+        return -1;
+    };
+    GameManagerService.prototype.trackByPlayers = function (index, player) {
+        return player.id;
+    };
+    GameManagerService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["B" /* Injectable */])(),
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__message_bus_service__["a" /* MessageBusService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__message_bus_service__["a" /* MessageBusService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__["a" /* CastReceiverManagerService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__cast_receiver_manager_service__["a" /* CastReceiverManagerService */]) === "function" && _b || Object])
+    ], GameManagerService);
+    return GameManagerService;
+    var _a, _b;
+}());
+
+//# sourceMappingURL=game-manager.service.js.map
 
 /***/ }),
 
