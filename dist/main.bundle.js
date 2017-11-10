@@ -96,16 +96,18 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_cast_receiver_manager_service__ = __webpack_require__("../../../../../src/app/services/cast-receiver-manager.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__players_player_list_component__ = __webpack_require__("../../../../../src/app/players/player-list.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__players_player_player_component__ = __webpack_require__("../../../../../src/app/players/player/player.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__players_player_test_player_test_component__ = __webpack_require__("../../../../../src/app/players/player-test/player-test.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_game_manager_service__ = __webpack_require__("../../../../../src/app/services/game-manager.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_message_bus_service__ = __webpack_require__("../../../../../src/app/services/message-bus.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__players_player_list_component__ = __webpack_require__("../../../../../src/app/players/player-list.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__players_player_player_component__ = __webpack_require__("../../../../../src/app/players/player/player.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__players_player_test_player_test_component__ = __webpack_require__("../../../../../src/app/players/player-test/player-test.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -122,9 +124,9 @@ var AppModule = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["L" /* NgModule */])({
             declarations: [
                 __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__players_player_list_component__["a" /* PlayerListComponent */],
-                __WEBPACK_IMPORTED_MODULE_7__players_player_player_component__["a" /* PlayerComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__players_player_test_player_test_component__["a" /* PlayerTestComponent */]
+                __WEBPACK_IMPORTED_MODULE_7__players_player_list_component__["a" /* PlayerListComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__players_player_player_component__["a" /* PlayerComponent */],
+                __WEBPACK_IMPORTED_MODULE_9__players_player_test_player_test_component__["a" /* PlayerTestComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
@@ -132,7 +134,8 @@ var AppModule = /** @class */ (function () {
             ],
             providers: [
                 __WEBPACK_IMPORTED_MODULE_4__services_cast_receiver_manager_service__["a" /* CastReceiverManagerService */],
-                __WEBPACK_IMPORTED_MODULE_5__services_message_bus_service__["a" /* MessageBusService */]
+                __WEBPACK_IMPORTED_MODULE_5__services_game_manager_service__["a" /* GameManagerService */],
+                __WEBPACK_IMPORTED_MODULE_6__services_message_bus_service__["a" /* MessageBusService */]
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* AppComponent */]]
         })

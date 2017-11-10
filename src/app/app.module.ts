@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 
 import { CastReceiverManagerService } from './services/cast-receiver-manager.service';
+import { GameManagerService } from './services/game-manager.service';
 import { MessageBusService } from './services/message-bus.service';
 
 import { PlayerListComponent } from './players/player-list.component';
@@ -24,6 +25,7 @@ import { PlayerTestComponent } from './players/player-test/player-test.component
   ],
   providers: [
     CastReceiverManagerService,
+    GameManagerService,
     MessageBusService
   ],
   bootstrap: [AppComponent]
