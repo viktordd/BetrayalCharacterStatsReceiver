@@ -1,4 +1,4 @@
-<main>
+<main (dblclick)="toggleTesting()">
   <app-player-list [players]="players"></app-player-list>
-  <!-- <app-player-test [players]="players"></app-player-test> -->
 </main>
+<app-player-test *ngIf="testing" [players]="players"></app-player-test>

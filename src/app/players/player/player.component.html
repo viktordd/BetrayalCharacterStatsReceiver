@@ -1,5 +1,5 @@
-<div class="player-container" [ngClass]="player.char">
-  <div *ngIf="player.char && player.char.length > 0">
+<div class="player-container" [ngClass]="player.char" [@flyInOut]="player.id" >
+  <div class="stats-container" *ngIf="player.char && player.char.length > 0">
       <div class="name">{{ player.name }}</div>
       <div class="stats left">
           Might: <span class="might" [ngClass]="{ 'init': isInit('might') }">{{ getStat('might') }}</span><br />

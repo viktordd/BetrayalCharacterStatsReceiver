@@ -11,6 +11,7 @@ import { Player } from './players/player.model';
 
 export class AppComponent implements OnInit {
   title = 'Betrayal Character Stats';
+  testing = false;
 
   private players: Player[] = [];
 
@@ -20,5 +21,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.gameManagerService.init();
     this.players = this.gameManagerService.Players;
+  }
+
+  toggleTesting() {
+    this.testing = !this.testing;
   }
 }

@@ -1,1 +1,1 @@
-<app-player class="reveal-animation"  *ngFor="let player of players; trackBy:trackByPlayers" [player]="player"></app-player>
+<app-player *ngFor="let player of players; trackBy:trackByPlayers" [player]="player" @childAnimation></app-player>

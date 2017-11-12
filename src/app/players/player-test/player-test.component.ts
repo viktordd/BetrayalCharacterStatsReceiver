@@ -11,11 +11,17 @@ import { CONFIG } from '../../config';
 export class PlayerTestComponent implements OnInit {
   @Input() players: Player[];
   i = 0;
+  chars: string[];
+
+  constructor() { }
+
+  ngOnInit() {
+    this.chars = Object.keys(CONFIG.stats);
+  }
 
   get player() {
-    if (this.players.length === this.i ) {
-      const chars = Object.keys(CONFIG.stats);
-      const charName = chars[this.i * 2 + 1];
+    if (this.players.length === this.i) {
+      const charName = this.chars[this.i * 2];
       const charConfig = CONFIG.stats[charName];
       this.players.push({
         id: '' + this.i,
@@ -30,8 +36,10 @@ export class PlayerTestComponent implements OnInit {
     return this.players[this.i];
   }
 
-  constructor() { }
-
-  ngOnInit() {
+  removePlayer() {
+    this.players.splice(this.i, 1);
+    if (this.i > 0 && this.i === this.players.length) {
+      this.i--;
+    }
   }
 }
