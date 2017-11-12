@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'Betrayal Character Stats';
   testing = false;
 
-  private players: Player[] = [];
+  players: Player[] = [];
 
   constructor(
     private gameManagerService: GameManagerService) { }
