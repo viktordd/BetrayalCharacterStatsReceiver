@@ -66,7 +66,7 @@ export let CONFIG = {
         red_darrin_flash_williams: {
             speed: [0, 4, 4, 4, 5, 6, 7, 7, 8],
             might: [0, 2, 3, 3, 4, 5, 6, 6, 7],
-            sanity: [0, 1, 2, 3, 5, 6, 6, 6, 7],
+            sanity: [0, 1, 2, 3, 4, 5, 5, 5, 7],
             knowledge: [0, 2, 3, 3, 4, 5, 5, 5, 7],
             initSpeed: 5,
             initMight: 3,
