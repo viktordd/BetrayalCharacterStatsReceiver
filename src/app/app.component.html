@@ -1,4 +1,6 @@
 <main (dblclick)="toggleTesting()">
   <app-player-list [players]="players"></app-player-list>
 </main>
+
+<app-player-list style="display:none;" [players]="preloadPlayers"></app-player-list>
 <app-player-test *ngIf="testing" [players]="players"></app-player-test>

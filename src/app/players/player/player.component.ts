@@ -10,7 +10,7 @@ import { CONFIG } from '../../config';
   styleUrls: ['./player.component.css', './player.component.less'],
   animations: [
     trigger('flyInOut', [
-      state('in', style({height: '*'})),
+      state('in', style({ height: '*' })),
       transition(':enter', [
         style({
           opacity: 0,
@@ -34,22 +34,26 @@ export class PlayerComponent {
 
   constructor() { }
 
-  private getClass(pos: number) {
-    return 'p-' + pos;
+  getClass(pos: number) {
+    return 'p-' + (pos ? pos : 0);
   }
 
   isInit(stat: string) {
     const char = CONFIG.stats[this.player.char];
     if (char) {
-      return char['init' + stat[0].toUpperCase() + stat.substr(1)] === this.player[stat];
+      return char['init' + this.toFirstUpper(stat)] === this.player[stat];
     }
   }
 
-  private getStat(stat: string) {
+  getStat(stat: string) {
     const char = CONFIG.stats[this.player.char];
     if (char) {
       return char[stat][this.player[stat]];
     }
     return 0;
+  }
+
+  toFirstUpper(val: string) {
+    return val[0].toUpperCase() + val.substr(1).toLowerCase();
   }
 }
