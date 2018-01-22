@@ -25,6 +25,7 @@ export class PlayerTestComponent implements OnInit {
       const charConfig = CONFIG.stats[charName];
       this.players.push({
         id: '' + this.i,
+        connected: true,
         char: charName,
         name: 'test',
         speed: charConfig.initSpeed,

@@ -15,8 +15,8 @@
 }
 
 .stats-container {
-	z-index: 2;
-	position: relative;
+    z-index: 2;
+    position: relative;
 }
 
 .name {
@@ -81,4 +81,8 @@
 .stats .sanity.init,
 .stats .knowledge.init {
     color: lightgreen;
+}
+
+.name.disconnected {
+    background-color: gray !important;
 }

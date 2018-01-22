@@ -1,5 +1,8 @@
 export class Player {
-    constructor(public id: string) { }
+    constructor(public id: string) {
+        this.connected = true;
+    }
+    connected: boolean;
     name: string;
     char: string;
     speed: number;

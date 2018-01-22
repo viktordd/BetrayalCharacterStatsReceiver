@@ -1,12 +1,13 @@
 <div>
   Index: <input id="index" type="number" [(ngModel)]="i" min="0" max="5">
-  Name: <input id="text" type="text" [(ngModel)]="player.name">
+  Name: <input id="name" type="text" [(ngModel)]="player.name">
   Char: <select [(ngModel)]="player.char">
     <option *ngFor="let char of chars" [value]="char">{{char}}</option>
   </select>
-  Might: <input id="index" type="number" [(ngModel)]="player.might" min="0" max="8">
-  Speed: <input id="index" type="number" [(ngModel)]="player.speed" min="0" max="8">
-  Sanity: <input id="index" type="number" [(ngModel)]="player.sanity" min="0" max="8">
-  Knowledge: <input id="index" type="number" [(ngModel)]="player.knowledge" min="0" max="8">
+  Might: <input id="might" type="number" [(ngModel)]="player.might" min="0" max="8">
+  Speed: <input id="speed" type="number" [(ngModel)]="player.speed" min="0" max="8">
+  Sanity: <input id="sanity" type="number" [(ngModel)]="player.sanity" min="0" max="8">
+  Knowledge: <input id="knowledge" type="number" [(ngModel)]="player.knowledge" min="0" max="8">
+  Connected: <input id="connected" type="checkbox" [(ngModel)]="player.connected">
   <input type="button" value="Remove" (click)="removePlayer()">
 </div>
