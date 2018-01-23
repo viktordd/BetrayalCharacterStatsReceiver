@@ -2,7 +2,7 @@ export let CONFIG = {
     chromecastNamespace: {
         betrayalCharacterStats: 'urn:x-cast:com.google.cast.betrayalCharacterStats',
     },
-    disconnectTimeout: 30 * 1000, // 30 seconds
+    disconnectTimeout: 1 * 1000, // 30 seconds
     stats: {
         blue_madame_zostra: {
             speed: [0, 2, 3, 3, 5, 5, 6, 6, 7],
