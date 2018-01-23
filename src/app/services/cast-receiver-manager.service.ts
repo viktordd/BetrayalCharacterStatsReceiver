@@ -36,9 +36,9 @@ export class CastReceiverManagerService {
 
         this.manager.onSenderDisconnected = (event) => {
             console.log(`Received Sender Disconnected event: ${JSON.stringify(event)}`);
-            if (this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
-                return;
-            }
+            // if (this.manager.getSenders().length === 0 && event.reason === cast.receiver.system.DisconnectReason.REQUESTED_BY_SENDER) {
+            //     return;
+            // }
             this.zone.run(() => {
                 this.onSenderDisconnected.next(this.getId(event.senderId));
             });
