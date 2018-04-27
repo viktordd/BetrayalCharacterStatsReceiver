@@ -1,5 +1,7 @@
 # BetrayalCharacterStatsReceiver
 
+This is a chromecast receiver app. The BetrayalCharacterStats app can cast to this app to display all player's stats in one place.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.7.
 
 ## Development server
