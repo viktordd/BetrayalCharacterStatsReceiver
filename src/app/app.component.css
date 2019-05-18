@@ -1,13 +1,15 @@
 body {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 main {
-	height: 720px;
-	width: 1280px;
-	vertical-align: middle;
-	color: #FFFFFF;
-	background-color: #000000;
-	font-family: Verdana, Geneva, sans-serif;
-	position: relative;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    vertical-align: middle;
+    color: #FFFFFF;
+    background-color: #000000;
+    font-family: Verdana, Geneva, sans-serif;
 }

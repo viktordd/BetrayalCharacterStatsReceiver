@@ -10,6 +10,7 @@ import { CONFIG } from '../../config';
 })
 export class PlayerTestComponent implements OnInit {
   @Input() players: Player[];
+  @Input() initCount: number;
   i = 0;
   chars: string[];
 
@@ -17,6 +18,12 @@ export class PlayerTestComponent implements OnInit {
 
   ngOnInit() {
     this.chars = Object.keys(CONFIG.stats);
+    if (this.initCount > 0) {
+      for (let i = 0; i < this.initCount; i++) {
+        this.i = i;
+        this.player;
+      }
+    }
   }
 
   get player() {
