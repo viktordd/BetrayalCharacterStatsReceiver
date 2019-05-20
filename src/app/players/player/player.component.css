@@ -1,7 +1,6 @@
 .player-container {
     height: 45%;
     width: 31%;
-    max-height: 330px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position-y: bottom;
