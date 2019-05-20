@@ -1,0 +1,21 @@
+div {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+}
+
+span {
+    color: white;
+}
+
+input {
+    width: 120px;
+}
+
+input[type=number] {
+    width: 40px;
+}
+
+input[type=checkbox] {
+    width: 15px;
+}
